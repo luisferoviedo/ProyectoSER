@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva de Educación Sexual</title>
+    <style>
+        :root {
+            --primary-color: #0056b3; /* Azul MEN Colombia (aproximado) */
+            --secondary-color: #f0f8ff; /* Azul claro */
+            --accent-color: #ffc107; /* Amarillo para acentos */
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --border-color: #ddd;
+            --hover-bg-color: #e9ecef;
+            --icon-color: var(--primary-color);
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header img.logo {
+            max-height: 80px;
+            width: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        nav.sidebar {
+            width: 280px;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            /* Estimación de altura del header si no es sticky */
+            /* Si el header SÍ es sticky, necesitas una altura calculada:
+               height: calc(100vh - APPROX_HEADER_HEIGHT); */
+            position: sticky;
+            top: 0; /* Para que el sidebar sea sticky en escritorio */
+             /* Altura del header (ejemplo): 15(pad-top)+80(logo)+10(margin-bottom)+ ~36(h1) + 15(pad-bottom) = ~156px */
+            height: calc(100vh - 156px); 
+        }
+        
+        nav.sidebar h2 {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        nav.sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav.sidebar ul li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        nav.sidebar ul li a .icon {
+            margin-right: 12px;
+            font-size: 1.3em;
+            color: var(--icon-color);
+            width: 24px;
+            text-align: center;
+        }
+        
+        nav.sidebar ul li a:hover,
+        nav.sidebar ul li a.active {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        nav.sidebar ul li a.active .icon {
+            color: var(--accent-color);
+        }
+
+        nav.sidebar .category-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1em;
+            padding-left: 15px;
+        }
+
+        nav.sidebar .subcategory li a {
+            padding-left: 40px;
+            font-size: 0.9em;
+        }
+        nav.sidebar .subcategory li a .icon {
+            font-size: 1.1em;
+        }
+
+
+        main.content {
+            flex-grow: 1;
+            padding: 30px;
+            background-color: #ffffff;
+            overflow-y: auto;
+            /* Misma altura calculada que el sidebar para layout de escritorio */
+            height: calc(100vh - 156px); 
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-size: 1.6em;
+        }
+        
+        .content-section h3 {
+            color: var(--primary-color);
+            opacity: 0.85;
+            margin-top: 25px;
+            font-size: 1.3em;
+        }
+
+        .content-section p, .content-section ul, .content-section ol {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        .content-section ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+        
+        .content-section .highlight {
+            background-color: var(--secondary-color);
+            padding: 15px;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px 20px;
+            background-color: var(--text-color);
+            color: var(--light-gray);
+            font-size: 0.9em;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) { /* Tablets and larger mobiles */
+            .container {
+                flex-direction: column;
+            }
+            nav.sidebar {
+                width: 100%;
+                height: auto; /* Altura auto en móvil */
+                position: static; /* No sticky en móvil */
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+                margin-bottom: 1px;
+                padding: 15px;
+            }
+            nav.sidebar h2 {
+                text-align: center;
+                font-size: 1.3em;
+            }
+            nav.sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav.sidebar ul li {
+                margin: 5px;
+            }
+            nav.sidebar ul li a {
+                 padding: 10px 12px;
+                 font-size: 0.9em;
+            }
+            nav.sidebar ul li a .icon {
+                margin-right: 8px;
+                font-size: 1.2em;
+            }
+            nav.sidebar .category-title {
+                width: 100%;
+                text-align: center;
+                padding-left: 0;
+                background-color: #f9f9f9;
+                padding: 8px 0;
+                margin-top: 15px;
+                margin-bottom: 8px;
+            }
+            nav.sidebar .subcategory li a {
+                padding-left: 15px;
+            }
+
+            main.content {
+                height: auto; /* Altura auto en móvil */
+                padding: 25px;
+            }
+            header {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 1.6em;
+            }
+            header img.logo {
+                max-height: 70px;
+            }
+        }
+
+        @media (max-width: 600px) { /* Mobile phones */
+            header {
+                padding: 10px 15px;
+            }
+            header img.logo {
+                max-height: 50px;
+                margin-bottom: 5px;
+            }
+            header h1 {
+                font-size: 1.3em;
+            }
+
+            nav.sidebar {
+                padding: 10px;
+            }
+            nav.sidebar h2 {
+                font-size: 1.2em;
+            }
+            nav.sidebar ul li a {
+                flex-direction: column;
+                text-align: center;
+                font-size: 0.85em;
+                padding: 8px 5px;
+            }
+            nav.sidebar ul li a .icon {
+                margin-right: 0;
+                margin-bottom: 4px;
+                font-size: 1.4em;
+            }
+            nav.sidebar .category-title {
+                font-size: 0.9em;
+                margin-top: 10px;
+            }
+
+            main.content {
+                padding: 15px;
+            }
+            .content-section h2 {
+                font-size: 1.4em;
+            }
+            .content-section h3 {
+                font-size: 1.2em;
+            }
+            .content-section p, .content-section ul, .content-section ol {
+                font-size: 0.95em;
+            }
+            footer {
+                padding: 10px 15px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- CAMBIA ESTO AL NOMBRE DE TU IMAGEN OPTIMIZADA Y SUBIDA LOCALMENTE -->
+        <img src="logo_guia.png" alt="Logo Guía Sexualidad" class="logo">
+        <h1>Guía Interactiva de Educación Sexual y Emocional</h1>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <h2>Temario</h2>
+            <ul>
+                <li class="category-title">Salud Sexual y Emocional</li>
+                <li><a href="#" data-target="masturbacion"><span class="icon">🖐️</span>Masturbación</a></li>
+                <li><a href="#" data-target="afectividad"><span class="icon">💖</span>Afectividad</a></li>
+                <li><a href="#" data-target="consentimiento"><span class="icon">🤝</span>Consentimiento</a></li>
+                <li><a href="#" data-target="autoconocimiento"><span class="icon">🧘</span>Autoconocimiento</a></li>
+                <li><a href="#" data-target="consecuencias"><span class="icon">⚠️</span>Consecuencias</a></li>
+                
+                <li class="category-title">Violencia y Derechos</li>
+                <li><a href="#" data-target="abuso"><span class="icon">🚫</span>Abuso Sexual</a></li>
+                <li><a href="#" data-target="violencia-genero"><span class="icon">♀️♂️</span>Violencia de Género</a></li>
+                <li><a href="#" data-target="edad-consentimiento"><span class="icon">⚖️</span>Edad de Consentimiento</a></li>
+                <li><a href="#" data-target="derechos-sexuales"><span class="icon">📜</span>Derechos Sexuales</a></li>
+                <li><a href="#" data-target="prevenir-violencia"><span class="icon">🛡️</span>Prevenir Violencia</a></li>
+
+                <li class="category-title">Historia y Cultura</li>
+                <li><a href="#" data-target="tabues-historia"><span class="icon">⏳</span>Tabúes Sexuales</a></li>
+                <li><a href="#" data-target="sexualidad-culturas"><span class="icon">🌍</span>Sexualidad y Culturas</a></li>
+                <li><a href="#" data-target="fetiches-fantasias"><span class="icon">💭</span>Fetiches y Fantasías</a></li>
+                <li><a href="#" data-target="influencia-religion"><span class="icon">🛐</span>Religión y Familia</a></li>
+                <li><a href="#" data-target="cultura-creencias"><span class="icon">🌐</span>Cultura y Creencias</a></li>
+
+                <li class="category-title">Prácticas Sexuales y Cuidado</li>
+                <li><a href="#" data-target="preservativos"><span class="icon">🛡️</span>Uso de Preservativos</a></li>
+                <li><a href="#" data-target="higiene-post"><span class="icon">🧼</span>Higiene Post-Relaciones</a></li>
+                <li><a href="#" data-target="frecuencia-sexual"><span class="icon">⚖️</span>Frecuencia Sexual</a></li>
+                <li><a href="#" data-target="riesgos-sin-proteccion"><span class="icon">🚨</span>Riesgos sin Protección</a></li>
+                <li><a href="#" data-target="beneficios-vida-sexual"><span class="icon">😊</span>Beneficios Vida Sexual</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <section id="inicio" class="content-section">
+                <h2>Bienvenida/o a la Guía de Educación Sexual</h2>
+                <p>Esta guía está diseñada para ofrecerte información clara, científica y respetuosa sobre la sexualidad. Nuestro objetivo es promover el autoconocimiento, el cuidado mutuo y la toma de decisiones informadas.</p>
+                <p>La sexualidad es una parte integral del ser humano y vivirla de manera saludable y responsable contribuye a nuestro bienestar general. Explora los temas del menú para aprender más.</p>
+                <div class="highlight">
+                    <p><strong>Recuerda:</strong> La educación sexual integral es un derecho. Infórmate, pregunta y cuida de ti y de los demás.</p>
+                </div>
+            </section>
+
+            <!-- Salud Sexual y Emocional -->
+            <section id="masturbacion" class="content-section">
+                <h2>Masturbación: Mitos, Realidades y Límites Saludables</h2>
+                <p>La masturbación es la autoestimulación de los genitales para obtener placer sexual. Es una práctica común y natural en todas las edades y géneros.</p>
+                <h3>Mitos Comunes:</h3>
+                <ul>
+                    <li>Causa ceguera, acné, infertilidad o debilidad: <strong>FALSO</strong>. No existe evidencia científica que respalde estas afirmaciones.</li>
+                    <li>Es algo sucio o vergonzoso: <strong>FALSO</strong>. Es una forma natural de explorar el propio cuerpo y el placer.</li>
+                </ul>
+                <h3>Realidades:</h3>
+                <ul>
+                    <li>Es una forma segura de experimentar placer sexual sin riesgo de embarazo o ITS.</li>
+                    <li>Ayuda al autoconocimiento corporal y a entender las propias respuestas sexuales.</li>
+                    <li>Puede aliviar el estrés y mejorar el estado de ánimo.</li>
+                </ul>
+                <h3>Límites Saludables:</h3>
+                <ul>
+                    <li>Debe ser una actividad privada y consensuada con uno mismo.</li>
+                    <li>No debe interferir con las responsabilidades diarias (estudio, trabajo, etc.).</li>
+                    <li>No debe causar dolor físico. Si lo hace, es importante consultar a un profesional de la salud.</li>
+                </ul>
+                <p><em>(Aquí se debe expandir con más información científica y relevante)</em></p>
+            </section>
+
+            <section id="afectividad" class="content-section">
+                <h2>Afectividad y Expresión Emocional en las Relaciones</h2>
+                <p>La afectividad es la capacidad de expresar y recibir emociones y sentimientos. Es fundamental en todas las relaciones humanas, incluyendo las sexuales y de pareja.</p>
+                <h3>Componentes Clave:</h3>
+                <ul>
+                    <li><strong>Empatía:</strong> Ponerse en el lugar del otro, comprender sus sentimientos.</li>
+                    <li><strong>Comunicación Asertiva:</strong> Expresar las propias necesidades y emociones de forma clara y respetuosa.</li>
+                    <li><strong>Escucha Activa:</strong> Prestar atención genuina a lo que la otra persona dice y siente.</li>
+                    <li><strong>Respeto:</strong> Valorar los sentimientos, opiniones y límites de los demás.</li>
+                </ul>
+                <p>Una sexualidad saludable se nutre de la conexión emocional, la confianza y el respeto mutuo. La expresión adecuada de la afectividad fortalece los vínculos y mejora la intimidad.</p>
+                <p><em>(Expandir con ejemplos, importancia en la salud mental, etc.)</em></p>
+            </section>
+
+            <section id="consentimiento" class="content-section">
+                <h2>Consentimiento y Respeto Mutuo</h2>
+                <p>El consentimiento es un acuerdo entusiasta, claro, informado, específico, continuo y reversible entre todas las personas involucradas en cualquier actividad sexual.</p>
+                <h3>Características del Consentimiento:</h3>
+                <ul>
+                    <li><strong>Entusiasta:</strong> Debe ser un "¡Sí!" claro y convencido, no la ausencia de un "No".</li>
+                    <li><strong>Informado:</strong> Todas las partes deben entender a qué están accediendo.</li>
+                    <li><strong>Específico:</strong> Consentir una actividad no implica consentir otras.</li>
+                    <li><strong>Continuo:</strong> Se puede retirar en cualquier momento, incluso si se había dado antes.</li>
+                    <li><strong>Reversible:</strong> Cambiar de opinión es válido en cualquier punto.</li>
+                </ul>
+                <p><strong>No hay consentimiento si:</strong></p>
+                <ul>
+                    <li>Alguien está dormido, inconsciente, incapacitado por alcohol o drogas.</li>
+                    <li>Hay coerción, manipulación, intimidación o amenaza.</li>
+                    <li>Se abusa de una posición de poder o autoridad.</li>
+                    <li>La persona no tiene la edad legal para consentir.</li>
+                </ul>
+                <p>El respeto mutuo implica valorar la autonomía y las decisiones de la otra persona. Sin consentimiento, cualquier acto sexual es una agresión.</p>
+                <p><em>(Expandir con ejemplos, cómo pedir consentimiento, cómo identificar la falta de este)</em></p>
+            </section>
+
+            <section id="autoconocimiento" class="content-section">
+                <h2>Autoconocimiento y Exploración del Cuerpo</h2>
+                <p>Conocer tu propio cuerpo es fundamental para tu bienestar sexual y emocional. Implica entender tu anatomía, tus sensaciones, lo que te gusta y lo que no.</p>
+                <h3>Beneficios del Autoconocimiento:</h3>
+                <ul>
+                    <li><strong>Mayor Placer:</strong> Saber qué te gusta te permite buscarlo y comunicarlo.</li>
+                    <li><strong>Salud:</strong> Detectar cambios en tu cuerpo (lunares, bultos, secreciones) puede ser clave para la detección temprana de problemas de salud.</li>
+                    <li><strong>Confianza:</strong> Sentirte cómodo/a con tu cuerpo mejora tu autoestima.</li>
+                    <li><strong>Mejor Comunicación:</strong> Poder explicar a una pareja tus preferencias y límites.</li>
+                </ul>
+                <p>La exploración puede incluir observar tu cuerpo, tocarlo (incluyendo la masturbación) y prestar atención a tus respuestas. No hay una forma "correcta" o "incorrecta" de explorar, siempre que sea respetuosa contigo mismo/a.</p>
+                <p><em>(Expandir con anatomía básica de forma inclusiva, cómo identificar señales de alerta, etc.)</em></p>
+            </section>
+
+            <section id="consecuencias" class="content-section">
+                <h2>Consecuencias de una Sexualidad Irresponsable</h2>
+                <p>Una sexualidad vivida sin información, cuidado y responsabilidad puede tener diversas consecuencias negativas:</p>
+                <h3>Embarazos no Planeados:</h3>
+                <p>Ocurren cuando no se utilizan métodos anticonceptivos o se usan incorrectamente. Pueden tener un impacto significativo en la vida de los jóvenes, afectando sus planes educativos, económicos y personales.</p>
+                <h3>Infecciones de Transmisión Sexual (ITS):</h3>
+                <p>Son infecciones que se transmiten principalmente a través del contacto sexual sin protección. Algunas comunes son: VIH, VPH (Virus del Papiloma Humano), clamidia, gonorrea, sífilis, herpes genital. Muchas ITS pueden no presentar síntomas visibles al principio, pero pueden tener consecuencias graves para la salud a largo plazo si no se tratan.</p>
+                <h3>Impacto Emocional:</h3>
+                <p>Relaciones basadas en la presión, la falta de consentimiento o el engaño pueden generar culpa, arrepentimiento, baja autoestima, ansiedad, depresión y dificultades para establecer relaciones saludables en el futuro. Sentirse utilizado/a o haber presionado a alguien puede tener secuelas emocionales duraderas.</p>
+                <p>La prevención, a través de la educación, el uso de métodos de protección (condón) y anticonceptivos, y la comunicación abierta, es clave.</p>
+                <p><em>(Expandir cada punto con más detalle, estadísticas relevantes de Colombia si es posible, dónde buscar ayuda)</em></p>
+            </section>
+
+            <!-- Violencia y Derechos -->
+            <section id="abuso" class="content-section">
+                <h2>Abuso Sexual: Cómo Identificarlo y Buscar Ayuda</h2>
+                <p>El abuso sexual es cualquier acto sexual no consentido o impuesto a una persona. Puede ocurrirle a cualquiera, sin importar su edad, género u orientación sexual.</p>
+                <h3>Formas de Abuso Sexual:</h3>
+                <ul>
+                    <li>Tocamientos no deseados.</li>
+                    <li>Exhibicionismo o exposición a material pornográfico sin consentimiento.</li>
+                    <li>Acoso sexual (comentarios, gestos, propuestas sexuales no deseadas).</li>
+                    <li>Violación (penetración no consentida).</li>
+                    <li>Explotación sexual (forzar a alguien a prostituirse o participar en pornografía).</li>
+                </ul>
+                <h3>Señales de Alerta (pueden variar):</h3>
+                <ul>
+                    <li>Cambios repentinos de comportamiento, humor o rendimiento escolar/laboral.</li>
+                    <li>Miedo o evitación de ciertas personas o lugares.</li>
+                    <li>Lesiones físicas inexplicables, especialmente en áreas genitales.</li>
+                    <li>Dificultad para dormir, pesadillas.</li>
+                    <li>Comportamientos sexuales inapropiados para la edad.</li>
+                </ul>
+                <h3>Qué Hacer y Dónde Buscar Ayuda:</h3>
+                <p><strong>Si eres víctima o conoces a alguien que lo sea:</strong></p>
+                <ol>
+                    <li><strong>No es tu culpa.</strong> La responsabilidad siempre es del agresor.</li>
+                    <li><strong>Busca un adulto de confianza:</strong> Un familiar, profesor, psicólogo, orientador.</li>
+                    <li><strong>Denuncia:</strong> En Colombia, puedes acudir a la Fiscalía General de la Nación, la Policía Nacional (Línea 123), el Instituto Colombiano de Bienestar Familiar (ICBF - Línea 141).</li>
+                    <li><strong>Busca apoyo psicológico y médico.</strong></li>
+                </ol>
+                <p><em>(Expandir con más recursos específicos de Colombia, el ciclo del abuso, mitos sobre el abuso)</em></p>
+            </section>
+            
+            <section id="violencia-genero" class="content-section">
+                <h2>Violencia de Género y Micromachismos</h2>
+                <p>La violencia de género es cualquier acto de violencia que se ejerce contra una persona debido a su género. Afecta desproporcionadamente a mujeres y niñas, así como a personas LGBTIQ+.</p>
+                <h3>Tipos de Violencia de Género:</h3>
+                <ul>
+                    <li><strong>Física:</strong> Golpes, empujones, cualquier daño al cuerpo.</li>
+                    <li><strong>Psicológica o Emocional:</strong> Insultos, humillaciones, amenazas, control, aislamiento.</li>
+                    <li><strong>Sexual:</strong> Cualquier acto sexual no consentido.</li>
+                    <li><strong>Económica o Patrimonial:</strong> Controlar el dinero, destruir bienes, impedir trabajar.</li>
+                    <li><strong>Simbólica:</strong> A través de mensajes, estereotipos que refuerzan la desigualdad.</li>
+                </ul>
+                <h3>Micromachismos:</h3>
+                <p>Son comportamientos sutiles y cotidianos, a menudo normalizados, que reflejan y perpetúan la desigualdad de género y el machismo. Ejemplos:</p>
+                <ul>
+                    <li>"Manterrupting": Interrumpir constantemente a una mujer cuando habla.</li>
+                    <li>"Mansplaining": Un hombre explicando algo a una mujer de forma condescendiente, asumiendo que ella no sabe.</li>
+                    <li>Comentarios sobre el aspecto físico de las mujeres en contextos profesionales.</li>
+                    <li>Asignar tareas domésticas o de cuidado exclusivamente a las mujeres.</li>
+                </ul>
+                <p>Reconocer y desafiar la violencia de género y los micromachismos es tarea de todos para construir una sociedad más equitativa.</p>
+                <p><em>(Expandir con el ciclo de la violencia, leyes colombianas, rutas de atención)</em></p>
+            </section>
+
+            <section id="edad-consentimiento" class="content-section">
+                <h2>Edad de Consentimiento y Leyes sobre Relaciones con Menores</h2>
+                <p>La edad de consentimiento sexual es la edad mínima a la que una persona se considera legalmente capaz de consentir actos sexuales.</p>
+                <p><strong>En Colombia, la edad de consentimiento sexual es de 14 años.</strong> Esto significa que cualquier acto sexual con una persona menor de 14 años es considerado un delito (abuso sexual o acceso carnal abusivo con menor de 14 años), incluso si el/la menor aparentemente "consiente", ya que la ley entiende que no tiene la madurez para dar un consentimiento válido.</p>
+                <h3>Consideraciones Importantes:</h3>
+                <ul>
+                    <li>Si la víctima es menor de 14 años, no se considera el consentimiento.</li>
+                    <li>Existen agravantes si el agresor es un familiar, tutor, profesor, o si hay una relación de poder o confianza.</li>
+                    <li>Las relaciones entre adolescentes de edades similares (por ejemplo, 14 y 15 años) pueden ser vistas de forma diferente por la ley que una relación entre un adulto y un menor de edad, pero siempre es crucial conocer la ley.</li>
+                    <li>El "grooming" (cuando un adulto establece un lazo de confianza con un menor con fines sexuales) también es un delito.</li>
+                </ul>
+                <p>Es fundamental respetar estas leyes para proteger a los niños, niñas y adolescentes. La ignorancia de la ley no exime de responsabilidad.</p>
+                <p><em>(Expandir con detalles de las leyes colombianas relevantes, Código Penal, y las implicaciones)</em></p>
+            </section>
+
+            <section id="derechos-sexuales" class="content-section">
+                <h2>Derechos Sexuales y Reproductivos</h2>
+                <p>Los derechos sexuales y reproductivos son derechos humanos fundamentales. Garantizan que todas las personas puedan tomar decisiones libres e informadas sobre su sexualidad y reproducción, sin coerción, discriminación ni violencia.</p>
+                <h3>Algunos Derechos Sexuales Clave:</h3>
+                <ul>
+                    <li>Derecho a la vida, libertad y seguridad personal.</li>
+                    <li>Derecho a la autonomía y autodeterminación sexual.</li>
+                    <li>Derecho a la privacidad.</li>
+                    <li>Derecho a la igualdad y a no ser discriminado/a.</li>
+                    <li>Derecho a la información y educación sexual integral.</li>
+                    <li>Derecho a decidir si tener hijos o no, cuándo y cuántos.</li>
+                    <li>Derecho a acceder a servicios de salud sexual y reproductiva de calidad (anticoncepción, atención prenatal, aborto seguro en los casos permitidos por la ley, prevención y tratamiento de ITS).</li>
+                    <li>Derecho a una vida libre de violencia y coerción sexual.</li>
+                </ul>
+                <p>Estos derechos son universales e inalienables. Conocerlos y exigirlos es esencial para una vivencia plena y saludable de la sexualidad.</p>
+                <p><em>(Expandir con el marco legal colombiano que respalda estos derechos, por ejemplo, sentencias de la Corte Constitucional)</em></p>
+            </section>
+            
+            <section id="prevenir-violencia" class="content-section">
+                <h2>Educación para Prevenir la Violencia Sexual y el Acoso</h2>
+                <p>La prevención de la violencia sexual y el acoso es una responsabilidad compartida que comienza con la educación.</p>
+                 <h3>Estrategias de Prevención:</h3>
+                <ul>
+                    <li><strong>Educación en Consentimiento:</strong> Enseñar desde temprana edad qué es el consentimiento, cómo darlo y cómo reconocerlo.</li>
+                    <li><strong>Fomentar la Igualdad de Género:</strong> Desafiar estereotipos de género y promover relaciones respetuosas y equitativas.</li>
+                    <li><strong>Enseñar sobre Límites Personales:</strong> Ayudar a niños, niñas y adolescentes a reconocer y establecer sus propios límites y a respetar los de los demás.</li>
+                    <li><strong>Identificar Señales de Alerta:</strong> Educar sobre cómo reconocer comportamientos abusivos o de acoso.</li>
+                    <li><strong>Promover la Comunicación Asertiva:</strong> Enseñar a expresar necesidades y desacuerdos de forma respetuosa.</li>
+                    <li><strong>Intervención de Testigos (Bystander Intervention):</strong> Animar a las personas a intervenir de manera segura cuando presencian situaciones de acoso o riesgo de violencia.</li>
+                    <li><strong>Crear Entornos Seguros:</strong> En escuelas, hogares y comunidades, donde se hable abiertamente de estos temas y se ofrezcan canales de denuncia y apoyo.</li>
+                </ul>
+                <p>La educación debe ser continua, adaptada a la edad y basada en el respeto, la empatía y los derechos humanos.</p>
+                <p><em>(Expandir con ejemplos prácticos, roles de la familia, escuela y comunidad)</em></p>
+            </section>
+
+            <!-- Historia y Cultura -->
+            <section id="tabues-historia" class="content-section">
+                <h2>Historia y Evolución de los Tabúes Sexuales</h2>
+                <p>Los tabúes sexuales son prohibiciones o restricciones sociales y culturales relacionadas con ciertos comportamientos, temas o expresiones sexuales. Han variado enormemente a lo largo de la historia y entre culturas.</p>
+                <h3>Orígenes y Funciones:</h3>
+                <ul>
+                    <li><strong>Control Social:</strong> Regular comportamientos para mantener el orden social, estructuras familiares o linajes.</li>
+                    <li><strong>Religión:</strong> Muchas religiones han establecido normas estrictas sobre la sexualidad, asociando ciertos actos con el pecado o la impureza.</li>
+                    <li><strong>Salud e Higiene:</strong> Preocupaciones (a veces erróneas) sobre enfermedades o la "degeneración" de la raza.</li>
+                    <li><strong>Poder y Jerarquía:</strong> Restringir la sexualidad de ciertos grupos (ej. mujeres, clases bajas) para mantener el poder de otros.</li>
+                </ul>
+                <h3>Evolución:</h3>
+                <p>Lo que se considera tabú en una época puede ser aceptado en otra. Por ejemplo, la homosexualidad, fuertemente reprimida en muchas sociedades occidentales durante siglos, ha ganado mayor aceptación y reconocimiento legal en décadas recientes. La masturbación, antes vista como una enfermedad, hoy se considera normal. La educación sexual misma fue un tabú.</p>
+                <p>Comprender la historia de los tabúes nos ayuda a ver cómo las normas sexuales son construcciones sociales que cambian con el tiempo.</p>
+                <p><em>(Expandir con ejemplos históricos específicos, el impacto de movimientos sociales)</em></p>
+            </section>
+
+            <section id="sexualidad-culturas" class="content-section">
+                <h2>Sexualidad en Diferentes Culturas y Regiones</h2>
+                <p>La forma en que se entiende, expresa y regula la sexualidad varía enormemente alrededor del mundo. No existe una única "forma natural" de vivir la sexualidad.</p>
+                <h3>Ejemplos de Diversidad Cultural:</h3>
+                <ul>
+                    <li><strong>Roles de Género:</strong> Algunas culturas tienen roles de género muy estrictos, mientras que otras reconocen múltiples géneros o roles más fluidos.</li>
+                    <li><strong>Matrimonio y Relaciones:</strong> Prácticas como la monogamia, poligamia, matrimonios arreglados, o la edad para casarse varían ampliamente.</li>
+                    <li><strong>Actitudes hacia la Homosexualidad:</strong> Desde la aceptación e integración hasta la criminalización y persecución.</li>
+                    <li><strong>Expresión de la Afectividad:</strong> Las demostraciones públicas de afecto son comunes en algunas culturas y mal vistas en otras.</li>
+                    <li><strong>Ritos de Iniciación:</strong> Algunas culturas tienen ceremonias que marcan la transición a la madurez sexual.</li>
+                </ul>
+                <p>Es importante abordar la diversidad cultural con respeto y evitar juicios etnocéntricos (juzgar otras culturas desde los estándares de la propia). Sin embargo, el respeto cultural no debe implicar la aceptación de prácticas que violen los derechos humanos (como la mutilación genital femenina o el matrimonio infantil).</p>
+                <p><em>(Expandir con más ejemplos específicos y el concepto de relativismo cultural vs. derechos universales)</em></p>
+            </section>
+            
+            <section id="fetiches-fantasias" class="content-section">
+                <h2>Construcción Cultural de los Fetiches y Fantasías</h2>
+                <p>Las fantasías sexuales son imágenes mentales o escenarios que provocan excitación sexual. Los fetiches son un tipo de parafilia donde la excitación sexual se asocia intensamente con objetos no genitales, partes específicas del cuerpo no sexuales, o situaciones particulares.</p>
+                <h3>Construcción Cultural:</h3>
+                <p>Si bien las bases biológicas del deseo sexual son universales, lo que consideramos erótico, incluyendo fetiches y fantasías, está fuertemente influenciado por nuestra cultura y experiencias personales.</p>
+                <ul>
+                    <li><strong>Medios de Comunicación:</strong> La publicidad, el cine, la pornografía pueden moldear lo que se percibe como atractivo o deseable.</li>
+                    <li><strong>Normas Sociales:</strong> Lo que una cultura considera "normal" o "desviado" influye en cómo se desarrollan y expresan las preferencias sexuales.
+                    <li><strong>Experiencias Tempranas:</strong> Asociaciones aprendidas, a menudo inconscientes, pueden dar forma a fantasías y fetiches.</li>
+                </ul>
+                <h3>Normalidad y Límites:</h3>
+                <p>Tener fantasías es completamente normal y saludable. Los fetiches también son comunes y generalmente no son problemáticos. Se considera una parafilia (un patrón de excitación atípico) y solo se vuelve un "trastorno parafílico" si causa angustia significativa a la persona o si implica daño o riesgo de daño a otros (por ejemplo, fetiches que involucran no consentimiento).</p>
+                <p>La clave es el consentimiento y la ausencia de daño o coerción.</p>
+                <p><em>(Expandir con ejemplos de fetiches comunes, la diferencia entre parafilia y trastorno parafílico)</em></p>
+            </section>
+
+            <section id="influencia-religion" class="content-section">
+                <h2>Influencia de la Religión y la Familia en la Percepción de la Sexualidad</h2>
+                <p>La religión y la familia son dos de las influencias más poderosas en cómo las personas entienden y viven su sexualidad.</p>
+                <h3>Influencia de la Religión:</h3>
+                <p>Muchas religiones tienen códigos morales y enseñanzas específicas sobre la sexualidad, que pueden incluir:</p>
+                <ul>
+                    <li><strong>Propósito de la Sexualidad:</strong> A menudo vinculada a la procreación dentro del matrimonio.</li>
+                    <li><strong>Restricciones:</strong> Prohibiciones sobre el sexo prematrimonial, extramatrimonial, la homosexualidad, la masturbación, o el uso de anticonceptivos.</li>
+                    <li><strong>Roles de Género:</strong> Definiciones de lo que se espera de hombres y mujeres en la esfera sexual y familiar.</li>
+                    <li><strong>Valores:</strong> Énfasis en la castidad, la fidelidad, la modestia.</li>
+                </ul>
+                <p>Para muchas personas, la fe proporciona un marco ético valioso. Sin embargo, algunas enseñanzas religiosas pueden entrar en conflicto con los derechos sexuales o generar culpa y ansiedad en torno a la sexualidad.</p>
+                <h3>Influencia de la Familia:</h3>
+                <p>La familia es el primer entorno donde aprendemos sobre relaciones, afecto y, directa o indirectamente, sobre sexualidad.</p>
+                <ul>
+                    <li><strong>Modelos a Seguir:</strong> Los padres y cuidadores modelan (o no) la comunicación abierta, el respeto y la afectividad.</li>
+                    <li><strong>Comunicación:</strong> La disposición de los padres a hablar sobre sexualidad (o su silencio) envía mensajes poderosos.</li>
+                    <li><strong>Valores Transmitidos:</strong> Creencias sobre el noviazgo, el matrimonio, los roles de género, el pudor.</li>
+                </ul>
+                <p>Es importante que las familias promuevan una visión positiva y saludable de la sexualidad, basada en la información, el respeto y el diálogo.</p>
+                <p><em>(Expandir con la diversidad de enfoques dentro de las religiones y familias)</em></p>
+            </section>
+
+            <section id="cultura-creencias" class="content-section">
+                <h2>Cultura, Tabúes y Creencias sobre la Sexualidad</h2>
+                <p>La cultura moldea profundamente nuestras actitudes, creencias y comportamientos sexuales. Lo que se considera "normal", "aceptable" o "deseable" es aprendido socialmente.</p>
+                <h3>Dimensiones Culturales de la Sexualidad:</h3>
+                <ul>
+                    <li><strong>Normas y Valores:</strong> Cada cultura establece reglas (explícitas o implícitas) sobre con quién, cuándo, dónde y cómo se puede expresar la sexualidad.</li>
+                    <li><strong>Símbolos y Significados:</strong> El cuerpo, la desnudez, ciertos actos sexuales, adquieren significados específicos dentro de un contexto cultural.</li>
+                    <li><strong>Lenguaje:</strong> Las palabras que usamos (o evitamos usar) para hablar de sexo reflejan y refuerzan actitudes culturales.</li>
+                    <li><strong>Tabúes:</strong> Como se mencionó, son prohibiciones culturales fuertes. Pueden relacionarse con el incesto, la menstruación, ciertos tipos de contacto sexual, etc.</li>
+                    <li><strong>Mitos y Creencias Populares:</strong> Ideas erróneas sobre la concepción, las ITS, el placer sexual, que se transmiten socialmente.</li>
+                </ul>
+                <p>Es crucial desarrollar un pensamiento crítico sobre las creencias culturales propias y ajenas, reconociendo que muchas son construcciones sociales y no verdades universales. Una perspectiva informada y respetuosa permite cuestionar mitos y tabúes dañinos y promover una sexualidad más libre y saludable, siempre en el marco del respeto a los derechos humanos.</p>
+                <p><em>(Expandir con ejemplos de cómo la globalización y los medios impactan las creencias culturales sobre sexualidad)</em></p>
+            </section>
+            
+            <!-- Prácticas Sexuales y Cuidado -->
+            <section id="preservativos" class="content-section">
+                <h2>Uso Correcto de Preservativos (Masculinos y Femeninos)</h2>
+                <p>Los preservativos (condones) son el único método que ofrece doble protección: previene embarazos no planeados y reduce significativamente el riesgo de transmisión de Infecciones de Transmisión Sexual (ITS), incluyendo el VIH.</p>
+                <h3>Preservativo Masculino (Externo):</h3>
+                <ol>
+                    <li><strong>Verificar Fecha de Caducidad y Empaque:</strong> Asegúrate de que no esté vencido y que el empaque esté intacto (sin roturas, con aire).</li>
+                    <li><strong>Abrir con Cuidado:</strong> Usa los dedos, no los dientes ni objetos afilados, para evitar rasgarlo.</li>
+                    <li><strong>Colocar ANTES de Cualquier Contacto Genital:</strong> Sobre el pene erecto. Si no está circuncidado, retrae el prepucio.</li>
+                    <li><strong>Apretar la Punta:</strong> Para sacar el aire y dejar espacio para el semen.</li>
+                    <li><strong>Desenrollar Completamente:</strong> Hasta la base del pene.</li>
+                    <li><strong>Usar Durante TODA la Relación Sexual.</strong></li>
+                    <li><strong>Retirar Después de Eyacular y ANTES de Perder la Erección:</strong> Sujeta el condón por la base al retirar el pene para evitar que se derrame el semen o que el condón quede dentro.</li>
+                    <li><strong>Desechar Correctamente:</strong> Envuélvelo en papel y tíralo a la basura, NUNCA al inodoro.</li>
+                    <li><strong>Usar uno Nuevo en Cada Acto Sexual.</strong></li>
+                </ol>
+                <h3>Preservativo Femenino (Interno):</h3>
+                <p>Es una funda de poliuretano o nitrilo con dos anillos flexibles en cada extremo. Se inserta en la vagina antes del coito.</p>
+                <ol>
+                    <li><strong>Verificar Fecha y Empaque.</strong></li>
+                    <li><strong>Introducir:</strong> El anillo interno más pequeño se aprieta y se introduce profundamente en la vagina, cerca del cérvix. El anillo externo, más grande, queda fuera cubriendo los genitales externos.</li>
+                    <li><strong>Asegurar que no Esté Torcido</strong> y que el pene entre DENTRO del preservativo, no entre el preservativo y la pared vaginal.</li>
+                    <li><strong>Retirar con Cuidado:</strong> Gira el anillo externo y tira suavemente para sacarlo.</li>
+                    <li><strong>Desechar y Usar uno Nuevo en Cada Acto.</strong></li>
+                </ol>
+                <p><strong>Importante:</strong> Nunca uses un condón masculino y uno femenino al mismo tiempo, la fricción puede romperlos. Usa lubricantes a base de agua o silicona, no a base de aceite (como vaselina o aceites corporales) con condones de látex, ya que pueden dañarlos.</p>
+                <p><em>(Expandir con más detalles, dónde conseguirlos, importancia del lubricante)</em></p>
+            </section>
+
+            <section id="higiene-post" class="content-section">
+                <h2>Higiene Post-Relaciones Sexuales</h2>
+                <p>Mantener una buena higiene después de las relaciones sexuales es importante para prevenir infecciones y mantener la salud genital.</p>
+                <h3>Recomendaciones Generales:</h3>
+                <ul>
+                    <li><strong>Orinar Después del Sexo:</strong> Especialmente para las personas con vulva/vagina, esto ayuda a limpiar la uretra y puede prevenir infecciones urinarias (cistitis).</li>
+                    <li><strong>Lavado Suave Externo:</strong> Lava el área genital externa con agua tibia. Se puede usar un jabón suave, sin perfume y de pH neutro si se desea, pero a menudo el agua es suficiente. Evita jabones fuertes, duchas vaginales o productos perfumados dentro de la vagina, ya que pueden alterar el equilibrio natural de la flora vaginal y causar irritación o infecciones.</li>
+                    <li><strong>Secado Cuidadoso:</strong> Seca el área con una toalla limpia y suave, dando golpecitos en lugar de frotar.</li>
+                    <li><strong>Ropa Interior Limpia:</strong> Usa ropa interior de algodón transpirable.</li>
+                    <li><strong>Hidratación:</strong> Beber agua también contribuye a la salud urinaria.</li>
+                </ul>
+                <h3>Para Personas con Pene:</h3>
+                <p>Lavar el pene con agua tibia, retrayendo el prepucio si no está circuncidado para limpiar debajo. Secar bien.</p>
+                <h3>Para Personas con Vagina:</h3>
+                <p>La vagina tiene un mecanismo de autolimpieza. Las duchas vaginales no son necesarias y pueden ser perjudiciales. El lavado debe ser externo (vulva).</p>
+                <p>Observar cualquier cambio como flujo inusual, mal olor, picazón o dolor, y consultar a un profesional de la salud si ocurren.</p>
+                <p><em>(Expandir sobre la importancia de no usar duchas vaginales, signos de alerta)</em></p>
+            </section>
+            
+            <section id="frecuencia-sexual" class="content-section">
+                <h2>Frecuencia Sexual y Salud Física/Emocional</h2>
+                <p>No existe una "frecuencia sexual normal" o ideal que aplique a todas las personas o parejas. Lo que es saludable y satisfactorio varía enormemente según la edad, estado de salud, circunstancias de la vida, deseo individual y la dinámica de la relación.</p>
+                <h3>Factores que Influyen en la Frecuencia:</h3>
+                <ul>
+                    <li><strong>Deseo Sexual (Libido):</strong> Varía entre individuos y puede fluctuar.</li>
+                    <li><strong>Calidad de la Relación:</strong> La conexión emocional, la comunicación y la satisfacción general en la pareja.</li>
+                    <li><strong>Salud Física y Mental:</strong> Enfermedades, medicamentos, estrés, ansiedad, depresión pueden afectar el deseo.</li>
+                    <li><strong>Edad y Cambios Hormonales.</strong></li>
+                    <li><strong>Estilo de Vida:</strong> Trabajo, hijos, responsabilidades.</li>
+                </ul>
+                <h3>Enfoque Saludable:</h3>
+                <ul>
+                    <li><strong>Calidad sobre Cantidad:</strong> Una vida sexual satisfactoria se basa más en la calidad de las interacciones (intimidad, placer, conexión) que en la frecuencia.</li>
+                    <li><strong>Comunicación:</strong> Hablar abiertamente con la pareja sobre deseos, necesidades y expectativas es crucial.</li>
+                    <li><strong>Consentimiento y Deseo Mutuo:</strong> La actividad sexual debe ser deseada y consensuada por todas las partes.</li>
+                    <li><strong>Bienestar Individual:</strong> La frecuencia debe sentirse bien para ti. Si la falta de sexo o la presión por tenerlo causa angustia, es importante abordarlo.</li>
+                </ul>
+                <p>Una vida sexual activa (según la definición de cada uno) puede tener beneficios para la salud física y emocional, pero la ausencia de actividad sexual no es inherentemente insalubre si es una elección personal o circunstancial que no causa malestar.</p>
+                <p><em>(Expandir sobre cómo abordar las diferencias de deseo en una pareja)</em></p>
+            </section>
+            
+            <section id="riesgos-sin-proteccion" class="content-section">
+                <h2>Riesgos del Sexo sin Protección (Más Allá del Embarazo)</h2>
+                <p>Tener relaciones sexuales sin protección (principalmente sin el uso de preservativos) conlleva riesgos significativos más allá de un embarazo no planeado. El principal riesgo es la transmisión de Infecciones de Transmisión Sexual (ITS).</p>
+                <h3>Infecciones de Transmisión Sexual (ITS):</h3>
+                <p>Son infecciones causadas por bacterias, virus o parásitos que se transmiten de una persona a otra durante el contacto sexual (vaginal, anal u oral) o por contacto con fluidos corporales infectados.</p>
+                <h4>Algunas ITS Comunes y sus Riesgos:</h4>
+                <ul>
+                    <li><strong>VIH (Virus de Inmunodeficiencia Humana):</strong> Ataca el sistema inmunológico, pudiendo llevar al SIDA. No tiene cura, pero con tratamiento se puede controlar.</li>
+                    <li><strong>VPH (Virus del Papiloma Humano):</strong> Muy común. Algunas cepas causan verrugas genitales, otras pueden causar cáncer (cervical, anal, de garganta). Hay vacuna preventiva.</li>
+                    <li><strong>Clamidia y Gonorrea:</strong> Infecciones bacterianas. A menudo asintomáticas, especialmente en mujeres. Si no se tratan, pueden causar enfermedad inflamatoria pélvica, infertilidad, dolor crónico.</li>
+                    <li><strong>Sífilis:</strong> Bacteriana. Progresa en etapas y puede dañar órganos vitales si no se trata.</li>
+                    <li><strong>Herpes Genital:</strong> Viral. Causa llagas dolorosas. No tiene cura, pero hay tratamiento para los brotes.</li>
+                    <li><strong>Hepatitis B y C:</strong> Virales. Afectan el hígado. La Hepatitis B tiene vacuna.</li>
+                    <li><strong>Tricomoniasis:</strong> Parasitaria. Causa flujo y picazón. Es tratable.</li>
+                </ul>
+                <h3>Otras Consecuencias:</h3>
+                <ul>
+                    <li><strong>Impacto Emocional:</strong> Ansiedad por posible infección, culpa, estigma.</li>
+                    <li><strong>Complicaciones de Salud a Largo Plazo:</strong> Infertilidad, dolor pélvico crónico, ciertos tipos de cáncer, daño neurológico.</li>
+                </ul>
+                <p>La única forma de reducir significativamente el riesgo de ITS es el uso correcto y consistente de preservativos y la realización periódica de pruebas de detección si se tienen múltiples parejas o sexo sin protección.</p>
+                <p><em>(Expandir con más detalles sobre síntomas (o ausencia de), tratamiento, y la importancia de las pruebas)</em></p>
+            </section>
+
+            <section id="beneficios-vida-sexual" class="content-section">
+                <h2>Beneficios de una Vida Sexual Saludable</h2>
+                <p>Una vida sexual saludable, consensuada y satisfactoria puede aportar numerosos beneficios al bienestar físico y emocional de las personas.</p>
+                <h3>Beneficios Físicos:</h3>
+                <ul>
+                    <li><strong>Mejora del Sistema Inmunológico:</strong> Algunos estudios sugieren que la actividad sexual regular puede aumentar los niveles de ciertos anticuerpos.</li>
+                    <li><strong>Salud Cardiovascular:</strong> Puede contribuir a reducir la presión arterial y el riesgo de problemas cardíacos.</li>
+                    <li><strong>Alivio del Dolor:</strong> La liberación de endorfinas durante el orgasmo puede actuar como analgésico natural.</li>
+                    <li><strong>Mejora del Sueño:</strong> La relajación y liberación hormonal post-orgasmo pueden facilitar el descanso.</li>
+                    <li><strong>Suelo Pélvico Fuerte:</strong> En mujeres, la actividad sexual puede ayudar a fortalecer los músculos del suelo pélvico.</li>
+                    <li><strong>Menor Estrés:</strong> El contacto físico y la liberación de hormonas como la oxitocina pueden reducir los niveles de estrés.</li>
+                </ul>
+                <h3>Beneficios Emocionales y Relacionales:</h3>
+                <ul>
+                    <li><strong>Mayor Intimidad y Conexión:</strong> Fortalece el vínculo emocional con la pareja.</li>
+                    <li><strong>Mejora del Estado de Ánimo:</strong> Liberación de endorfinas y otras sustancias que generan sensación de bienestar.</li>
+                    <li><strong>Aumento de la Autoestima y Confianza:</strong> Sentirse deseado/a y disfrutar del propio cuerpo.</li>
+                    <li><strong>Reducción de la Ansiedad:</strong> El placer y la relajación pueden tener efectos ansiolíticos.</li>
+                </ul>
+                <p>Es importante recordar que "vida sexual saludable" no se define por la frecuencia, sino por la calidad, el consentimiento, el respeto mutuo, la seguridad y la satisfacción personal. Puede incluir o no la penetración, y puede vivirse en pareja o individualmente (masturbación).</p>
+                <p><em>(Expandir con referencias a estudios si es posible, y enfatizar que estos son beneficios potenciales, no garantías)</em></p>
+            </section>
+            
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Guía Interactiva de Educación Sexual. Información con base científica y enfoque inclusivo.</p>
+        <p>Este material es educativo y no reemplaza la consulta con profesionales de la salud o asesores legales.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav.sidebar ul li a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainContentArea = document.querySelector('main.content');
+            // const headerElement = document.querySelector('header'); // No se usa directamente en esta versión del scroll
+
+            function showContent(targetId) {
+                // console.log(`[showContent] Intentando mostrar: ${targetId}`);
+
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    // console.log(`[showContent] Sección activada: ${targetSection.id}`);
+
+                    const isMobileLayout = window.innerWidth <= 992;
+
+                    if (!isMobileLayout && mainContentArea.scrollHeight > mainContentArea.clientHeight) {
+                        mainContentArea.scrollTop = 0;
+                    } else if (isMobileLayout) {
+                        // En móvil, el 'main.content' está en el flujo normal del documento
+                        // Hacemos scroll para que la parte superior de 'main.content' sea visible.
+                        const mainContentTop = mainContentArea.getBoundingClientRect().top + window.pageYOffset;
+                        // Opcional: restar altura de un header si fuera sticky EN MÓVIL, o añadir un pequeño offset
+                        // const headerMobileHeight = 0; // Si el header no es sticky en móvil
+                        const offset = 10; // Pequeño margen superior
+                        
+                        window.scrollTo({ 
+                            top: mainContentTop - offset > 0 ? mainContentTop - offset : 0,
+                            behavior: 'auto' 
+                        });
+                    }
+                } else {
+                    // console.error(`[showContent] ERROR: Sección NO encontrada para ID: ${targetId}`);
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    // console.log(`[Link Click] Click en: ${targetId}`);
+
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    showContent(targetId);
+                });
+            });
+
+            function initializePage() {
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+
+                const inicioSection = document.getElementById('inicio');
+                const inicioLink = document.querySelector('a[data-target="inicio"]');
+
+                if (inicioSection) {
+                    inicioSection.classList.add('active');
+                    if (inicioLink) {
+                        inicioLink.classList.add('active');
+                    }
+                    // console.log('[Initialize] Sección "inicio" y link (si existe) activados.');
+                } else {
+                    // console.warn('[Initialize] Sección "inicio" no encontrada. Intentando mostrar primera sección disponible.');
+                    const firstContentLink = document.querySelector('nav.sidebar ul li:not(.category-title) a');
+                    if (firstContentLink) {
+                        const firstTargetId = firstContentLink.getAttribute('data-target');
+                        const firstSection = document.getElementById(firstTargetId);
+                        if (firstSection) {
+                            firstSection.classList.add('active');
+                            firstContentLink.classList.add('active');
+                            // console.log(`[Initialize] Activada primera sección/link: ${firstTargetId}`);
+                        }
+                    } else {
+                        // console.error('[Initialize] No hay secciones de contenido o links para mostrar por defecto.');
+                    }
+                }
+            }
+
+            initializePage();
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>
