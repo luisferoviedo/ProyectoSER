@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Guía Interactiva de Educación Sexual</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #f0f8ff;
+            --accent-color: #ffc107;
+            --text-color: #333;
+            --light-gray: #f4f4f4;
+            --border-color: #ddd;
+            --hover-bg-color: #e9ecef;
+            --icon-color: var(--primary-color);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ... (todo tu CSS existente se mantiene igual) ... */
+
+        @media (max-width: 600px) {
+            nav.sidebar ul li a {
+                flex-direction: column;
+                text-align: center;
+                font-size: 0.8em;
+            }
+            nav.sidebar ul li a .icon {
+                margin-right: 0;
+                margin-bottom: 5px;
+                font-size: 1.5em;
+            }
+            .content-section p, .content-section ul, .content-section ol {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <!-- Logo local para mejor compatibilidad -->
+        <img src="logo.png" alt="Logo Guía Sexualidad" class="logo">
+        <h1>Guía Interactiva de Educación Sexual y Emocional</h1>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <h2>Temario</h2>
+            <ul>
+                <li class="category-title">Salud Sexual y Emocional</li>
+                <li><a href="#" data-target="masturbacion"><span class="icon">🖐️</span>Masturbación</a></li>
+                <!-- ... (todos tus elementos de menú) ... -->
+            </ul>
+        </nav>
+
+        <main class="content">
+            <section id="inicio" class="content-section active">
+                <!-- ... (todo tu contenido) ... -->
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Guía Interactiva de Educación Sexual.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav.sidebar ul li a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainContentArea = document.querySelector('main.content');
+
+            function showContent(targetId) {
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.classList.add('active');
+                    if (mainContentArea) {
+                        mainContentArea.scrollTop = 0;
+                    }
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetId = this.getAttribute('data-target');
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    this.classList.add('active');
+                    showContent(targetId);
+                });
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            showContent('inicio');
+        });
+    </script>
+</body>
+</html>
