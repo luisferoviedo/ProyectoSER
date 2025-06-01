@@ -257,7 +257,13 @@ footer {
         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         margin-bottom: 1px;
         padding: 15px;
+        display: none; /* Ocultar por defecto en móviles */
     }
+    
+    nav.sidebar.active {
+        display: block; /* Mostrar solo cuando tiene la clase active */
+    }
+    
     nav.sidebar h2 {
         text-align: center;
         font-size: 1.3em;
@@ -725,7 +731,7 @@ footer {
     <h3>Ejemplos de Diversidad Cultural Global:</h3>
     <ul>
       <li><strong>Roles de Género:</strong> En Samoa, existen los <em>fa'afafine</em>, reconocidos como un tercer género. En India, los <em>hijras</em> son parte de un sistema ancestral de identidad no binaria.</li>
-      <li><strong>Matrimonio y Relaciones:</strong> En regiones del norte de África y Medio Oriente, el matrimonio infantil aún se practica, mientras que en países como Suecia o Islandia predomina la unión libre consensuada.</li>
+      <li><strong>Matrimonio y Relaciones:</strong> En regiones del norte de África y Medio Oriente, el matrimonio infantil aún se practica, mientras que en países como Suecio o Islandia predomina la unión libre consensuada.</li>
       <li><strong>Actitudes hacia la Homosexualidad:</strong> Mientras que en Canadá o Sudáfrica existe matrimonio igualitario, en países como Uganda o Irán la homosexualidad es perseguida legalmente.</li>
       <li><strong>Ritos de Iniciación:</strong> En comunidades indígenas amazónicas se realizan ceremonias que integran aspectos espirituales, sexuales y de maduración.</li>
     </ul>
@@ -1097,13 +1103,13 @@ footer {
 document.addEventListener('DOMContentLoaded', function() {
     // Botón hamburguesa para móviles
     const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav');
+    const sidebar = document.querySelector('nav.sidebar');
     
-    if(hamburger && navMenu) {
+    if(hamburger && sidebar) {
         hamburger.addEventListener('click', function() {
             const expanded = this.getAttribute('aria-expanded') === 'true' || false;
             this.setAttribute('aria-expanded', !expanded);
-            navMenu.classList.toggle('active');
+            sidebar.classList.toggle('active');
         });
     }
     
@@ -1128,6 +1134,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const activeLink = document.querySelector(`nav.sidebar ul li a[data-target="${targetId}"]`);
         if(activeLink) {
             activeLink.classList.add('active');
+        }
+        
+        // Ocultar el menú lateral en móviles después de seleccionar un tema
+        if (window.innerWidth <= 992) {
+            if (sidebar) {
+                sidebar.classList.remove('active');
+            }
+            if (hamburger) {
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
         }
         
         // Scroll al inicio del contenido en móviles
@@ -1182,11 +1198,8 @@ function initChart() {
         });
     }
 }
-</script>
-<!-- Cargar Chart.js después de definir la función initChart -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-// Inicializar gráfico cuando Chart.js esté cargado
+
+// Cargar Chart.js después de definir la función initChart
 if(typeof Chart !== 'undefined') {
     initChart();
 } else {
