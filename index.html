@@ -1,323 +1,237 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Interactiva de Educación Sexual</title>
-    <style>
-        :root {
-            --primary-color: #0056b3; /* Azul MEN Colombia (aproximado) */
-            --secondary-color: #f0f8ff; /* Azul claro */
-            --accent-color: #ffc107; /* Amarillo para acentos */
-            --text-color: #333;
-            --light-gray: #f4f4f4;
-            --border-color: #ddd;
-            --hover-bg-color: #e9ecef;
-            --icon-color: var(--primary-color);
-        }
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guía Interactiva de Educación Sexual</title>
+<style>
+:root {
+    --primary-color: #0056b3;
+    --secondary-color: #f0f8ff;
+    --accent-color: #ffc107;
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --border-color: #ddd;
+    --hover-bg-color: #e9ecef;
+    --icon-color: var(--primary-color);
+}
 
-        html {
-            box-sizing: border-box;
-        }
-        *, *:before, *:after {
-            box-sizing: inherit;
-        }
+html {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light-gray);
-            color: var(--text-color);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 
-        .container {
-            display: flex;
-            flex-grow: 1;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+.container {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-        header img.logo {
-            max-height: 80px;
-            width: auto;
-            margin-bottom: 10px;
-            border-radius: 8px;
-        }
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        header h1 {
-            margin: 0;
-            font-size: 1.8em;
-        }
+header img.logo {
+    max-height: 80px;
+    width: auto;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
 
-        nav.sidebar {
-            width: 280px;
-            background-color: #ffffff;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
-            overflow-y: auto;
-            /* Estimación de altura del header si no es sticky */
-            /* Si el header SÍ es sticky, necesitas una altura calculada:
-               height: calc(100vh - APPROX_HEADER_HEIGHT); */
-            position: sticky;
-            top: 0; /* Para que el sidebar sea sticky en escritorio */
-             /* Altura del header (ejemplo): 15(pad-top)+80(logo)+10(margin-bottom)+ ~36(h1) + 15(pad-bottom) = ~156px */
-            height: calc(100vh - 156px); 
-        }
-        
-        nav.sidebar h2 {
-            font-size: 1.2em;
-            color: var(--primary-color);
-            margin-top: 0;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-        }
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    flex-grow: 1;
+    text-align: center;
+}
 
-        nav.sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+/* Botón hamburguesa (visible solo en móviles) */
+.hamburger {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+    color: white;
+    padding: 5px 10px;
+}
 
-        nav.sidebar ul li a {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            color: var(--text-color);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.2s ease, color 0.2s ease;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
+/* Estilos responsivos para móviles */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    header h1 {
+        font-size: 1.4em;
+        padding: 0 10px;
+    }
+}
 
-        nav.sidebar ul li a .icon {
-            margin-right: 12px;
-            font-size: 1.3em;
-            color: var(--icon-color);
-            width: 24px;
-            text-align: center;
-        }
-        
-        nav.sidebar ul li a:hover,
-        nav.sidebar ul li a.active {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-        
-        nav.sidebar ul li a.active .icon {
-            color: var(--accent-color);
-        }
+nav.sidebar {
+    width: 280px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    overflow-y: auto;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    min-height: calc(100vh - 156px);
+}
 
-        nav.sidebar .category-title {
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1em;
-            padding-left: 15px;
-        }
+nav.sidebar h2 {
+    font-size: 1.2em;
+    color: var(--primary-color);
+    margin-top: 0;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+}
 
-        nav.sidebar .subcategory li a {
-            padding-left: 40px;
-            font-size: 0.9em;
-        }
-        nav.sidebar .subcategory li a .icon {
-            font-size: 1.1em;
-        }
+nav.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    margin-bottom: 5px;
+    font-size: 0.95em;
+}
+
+nav.sidebar ul li a .icon {
+    margin-right: 12px;
+    font-size: 1.3em;
+    color: var(--icon-color);
+    width: 24px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+nav.sidebar ul li a:hover,
+nav.sidebar ul li a.active {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+nav.sidebar ul li a.active .icon {
+    color: var(--accent-color);
+}
+
+nav.sidebar .category-title {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    padding-left: 15px;
+}
+
+nav.sidebar .subcategory li a {
+    padding-left: 40px;
+    font-size: 0.9em;
+}
+nav.sidebar .subcategory li a .icon {
+    font-size: 1.1em;
+}
 
 
-        main.content {
-            flex-grow: 1;
-            padding: 30px;
-            background-color: #ffffff;
-            overflow-y: auto;
-            /* Misma altura calculada que el sidebar para layout de escritorio */
-            height: calc(100vh - 156px); 
-        }
+main.content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #ffffff;
+    overflow-y: auto;
+    min-height: calc(100vh - 156px);
+}
 
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
+.content-section {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
 
-        .content-section.active {
-            display: block;
-        }
+.content-section.active {
+    display: block;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .content-section h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.6em;
-        }
-        
-        .content-section h3 {
-            color: var(--primary-color);
-            opacity: 0.85;
-            margin-top: 25px;
-            font-size: 1.3em;
-        }
+.content-section h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+    font-size: 1.6em;
+}
 
-        .content-section p, .content-section ul, .content-section ol {
-            margin-bottom: 15px;
-            font-size: 1.05em;
-        }
+.content-section h3 {
+    color: var(--primary-color);
+    opacity: 0.85;
+    margin-top: 25px;
+    font-size: 1.3em;
+}
 
-        .content-section ul {
-            list-style: disc;
-            padding-left: 20px;
-        }
-        
-        .content-section .highlight {
-            background-color: var(--secondary-color);
-            padding: 15px;
-            border-left: 4px solid var(--accent-color);
-            border-radius: 4px;
-            margin: 20px 0;
-        }
+.content-section p, .content-section ul, .content-section ol {
+    margin-bottom: 15px;
+    font-size: 1.05em;
+}
 
-        footer {
-            text-align: center;
-            padding: 15px 20px;
-            background-color: var(--text-color);
-            color: var(--light-gray);
-            font-size: 0.9em;
-        }
+.content-section ul {
+    list-style: disc;
+    padding-left: 20px;
+}
 
-        /* Responsive adjustments */
-        @media (max-width: 992px) { /* Tablets and larger mobiles */
-            .container {
-                flex-direction: column;
-            }
-            nav.sidebar {
-                width: 100%;
-                height: auto; /* Altura auto en móvil */
-                position: static; /* No sticky en móvil */
-                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-                margin-bottom: 1px;
-                padding: 15px;
-            }
-            nav.sidebar h2 {
-                text-align: center;
-                font-size: 1.3em;
-            }
-            nav.sidebar ul {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            nav.sidebar ul li {
-                margin: 5px;
-            }
-            nav.sidebar ul li a {
-                 padding: 10px 12px;
-                 font-size: 0.9em;
-            }
-            nav.sidebar ul li a .icon {
-                margin-right: 8px;
-                font-size: 1.2em;
-            }
-            nav.sidebar .category-title {
-                width: 100%;
-                text-align: center;
-                padding-left: 0;
-                background-color: #f9f9f9;
-                padding: 8px 0;
-                margin-top: 15px;
-                margin-bottom: 8px;
-            }
-            nav.sidebar .subcategory li a {
-                padding-left: 15px;
-            }
+.content-section .highlight {
+    background-color: var(--secondary-color);
+    padding: 15px;
+    border-left: 4px solid var(--accent-color);
+    border-radius: 4px;
+    margin: 20px 0;
+}
 
-            main.content {
-                height: auto; /* Altura auto en móvil */
-                padding: 25px;
-            }
-            header {
-                padding: 15px;
-            }
-            header h1 {
-                font-size: 1.6em;
-            }
-            header img.logo {
-                max-height: 70px;
-            }
-        }
+footer {
+    text-align: center;
+    padding: 15px 20px;
+    background-color: var(--text-color);
+    color: var(--light-gray);
+    font-size: 0.9em;
+}
 
-        @media (max-width: 600px) { /* Mobile phones */
-            header {
-                padding: 10px 15px;
-            }
-            header img.logo {
-                max-height: 50px;
-                margin-bottom: 5px;
-            }
-            header h1 {
-                font-size: 1.3em;
-            }
-
-            nav.sidebar {
-                padding: 10px;
-            }
-            nav.sidebar h2 {
-                font-size: 1.2em;
-            }
-            nav.sidebar ul li a {
-                flex-direction: column;
-                text-align: center;
-                font-size: 0.85em;
-                padding: 8px 5px;
-            }
-            nav.sidebar ul li a .icon {
-                margin-right: 0;
-                margin-bottom: 4px;
-                font-size: 1.4em;
-            }
-            nav.sidebar .category-title {
-                font-size: 0.9em;
-                margin-top: 10px;
-            }
-
-            main.content {
-                padding: 15px;
-            }
-            .content-section h2 {
-                font-size: 1.4em;
-            }
-            .content-section h3 {
-                font-size: 1.2em;
-            }
-            .content-section p, .content-section ul, .content-section ol {
-                font-size: 0.95em;
-            }
-            footer {
-                padding: 10px 15px;
-                font-size: 0.8em;
-            }
-        }
-        /* Estilo para referencias bibliográficas */
+/* Estilo para referencias bibliográficas */
 .reference {
     background-color: #f8f9fa;
     border-left: 4px solid #28a745;
@@ -330,710 +244,954 @@
 .reference p {
     margin: 5px 0;
 }
-    </style>
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Tablets and larger mobiles */
+    .container {
+        flex-direction: column;
+    }
+    nav.sidebar {
+        width: 100%;
+        min-height: auto;
+        position: static;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        margin-bottom: 1px;
+        padding: 15px;
+    }
+    nav.sidebar h2 {
+        text-align: center;
+        font-size: 1.3em;
+    }
+    nav.sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    nav.sidebar ul li {
+        margin: 5px;
+        flex: 1 0 45%;
+    }
+    nav.sidebar ul li a {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+    nav.sidebar ul li a .icon {
+        margin-right: 8px;
+        font-size: 1.2em;
+    }
+    nav.sidebar .category-title {
+        width: 100%;
+        text-align: center;
+        padding-left: 0;
+        background-color: #f9f9f9;
+        padding: 8px 0;
+        margin-top: 15px;
+        margin-bottom: 8px;
+    }
+    nav.sidebar .subcategory li a {
+        padding-left: 15px;
+    }
+
+    main.content {
+        min-height: auto;
+        padding: 25px;
+    }
+    header {
+        padding: 15px;
+    }
+    header h1 {
+        font-size: 1.6em;
+    }
+    header img.logo {
+        max-height: 70px;
+    }
+}
+
+@media (max-width: 600px) { /* Mobile phones */
+    header {
+        padding: 10px 15px;
+    }
+    header img.logo {
+        max-height: 50px;
+        margin-bottom: 5px;
+    }
+    header h1 {
+        font-size: 1.3em;
+    }
+
+    nav.sidebar {
+        padding: 10px;
+    }
+    nav.sidebar h2 {
+        font-size: 1.2em;
+    }
+    nav.sidebar ul li {
+        flex: 1 0 100%;
+    }
+    nav.sidebar ul li a {
+        flex-direction: row;
+        text-align: left;
+        font-size: 0.85em;
+        padding: 8px 10px;
+    }
+    nav.sidebar ul li a .icon {
+        margin-right: 8px;
+        margin-bottom: 0;
+        font-size: 1.4em;
+    }
+    nav.sidebar .category-title {
+        font-size: 0.9em;
+        margin-top: 10px;
+    }
+
+    main.content {
+        padding: 15px;
+    }
+    .content-section h2 {
+        font-size: 1.4em;
+    }
+    .content-section h3 {
+        font-size: 1.2em;
+    }
+    .content-section p, .content-section ul, .content-section ol {
+        font-size: 0.95em;
+    }
+    footer {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+}
+
+/* Estilos para gráficos responsive */
+.chart-container {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+</style>
 </head>
 <body>
-
-    <header>
-        <!-- Se actualiza el logo, antes estaba cargado en un repositorio pero causaba problema -->
-        <img src="logo.png" alt="Logo Guía Sexualidad" class="logo">
-        <h1>Guía Interactiva de Educación Sexual y Emocional</h1>
-    </header>
-
-    <div class="container">
-        <nav class="sidebar">
-            <h2>Temario</h2>
-            <ul>
-                <li class="category-title">Salud Sexual y Emocional</li>
-                <li><a href="#" data-target="masturbacion"><span class="icon">🖐️</span>Masturbación</a></li>
-                <li><a href="#" data-target="afectividad"><span class="icon">💖</span>Afectividad</a></li>
-                <li><a href="#" data-target="consentimiento"><span class="icon">🤝</span>Consentimiento</a></li>
-                <li><a href="#" data-target="autoconocimiento"><span class="icon">🧘</span>Autoconocimiento</a></li>
-                <li><a href="#" data-target="consecuencias"><span class="icon">⚠️</span>Consecuencias</a></li>
-                
-                <li class="category-title">Violencia y Derechos</li>
-                <li><a href="#" data-target="abuso"><span class="icon">🚫</span>Abuso Sexual</a></li>
-                <li><a href="#" data-target="violencia-genero"><span class="icon">♀️♂️</span>Violencia de Género</a></li>
-                <li><a href="#" data-target="edad-consentimiento"><span class="icon">⚖️</span>Edad de Consentimiento</a></li>
-                <li><a href="#" data-target="derechos-sexuales"><span class="icon">📜</span>Derechos Sexuales</a></li>
-                <li><a href="#" data-target="prevenir-violencia"><span class="icon">🛡️</span>Prevenir Violencia</a></li>
-
-                <li class="category-title">Historia y Cultura</li>
-                <li><a href="#" data-target="tabues-historia"><span class="icon">⏳</span>Tabúes Sexuales</a></li>
-                <li><a href="#" data-target="sexualidad-culturas"><span class="icon">🌍</span>Sexualidad y Culturas</a></li>
-                <li><a href="#" data-target="fetiches-fantasias"><span class="icon">💭</span>Fetiches y Fantasías</a></li>
-                <li><a href="#" data-target="influencia-religion"><span class="icon">🛐</span>Religión y Familia</a></li>
-                <li><a href="#" data-target="cultura-creencias"><span class="icon">🌐</span>Cultura y Creencias</a></li>
-
-                <li class="category-title">Prácticas Sexuales y Cuidado</li>
-                <li><a href="#" data-target="preservativos"><span class="icon">🛡️</span>Uso de Preservativos</a></li>
-                <li><a href="#" data-target="higiene-post"><span class="icon">🧼</span>Higiene Post-Relaciones</a></li>
-                <li><a href="#" data-target="frecuencia-sexual"><span class="icon">⚖️</span>Frecuencia Sexual</a></li>
-                <li><a href="#" data-target="riesgos-sin-proteccion"><span class="icon">🚨</span>Riesgos sin Protección</a></li>
-                <li><a href="#" data-target="beneficios-vida-sexual"><span class="icon">😊</span>Beneficios Vida Sexual</a></li>
-            </ul>
-        </nav>
-
-        <main class="content">
-            <section id="inicio" class="content-section">
-                <h2>Bienvenida/o a la Guía de Educación Sexual</h2>
-                <p>Esta guía está diseñada para ofrecerte información clara, científica y respetuosa sobre la sexualidad. Nuestro objetivo es promover el autoconocimiento, el cuidado mutuo y la toma de decisiones informadas.</p>
-                <p>La sexualidad es una parte integral del ser humano y vivirla de manera saludable y responsable contribuye a nuestro bienestar general. Explora los temas del menú para aprender más.</p>
-                <div class="highlight">
-                    <p><strong>Recuerda:</strong> La educación sexual integral es un derecho. Infórmate, pregunta y cuida de ti y de los demás.</p>
-                </div>
-            </section>
-
-            <!-- Salud Sexual y Emocional -->
-            <section id="masturbacion" class="content-section">
-                <h2>Masturbación: Mitos, Realidades y Salud</h2>
-                <p>La masturbación es una práctica sexual normal y saludable reconocida por organizaciones médicas internacionales. Según la OMS, es "una forma natural de exploración sexual que no causa daño físico o psicológico" (OMS, 2022).</p>
-                
-                <div class="highlight">
-                    <p><strong>Dato clave:</strong> El 95% de los hombres y 89% de las mujeres reportan haber tenido experiencias de masturbación (Kinsey Institute, 2021).</p>
-                </div>
-                
-                <h3>Beneficios comprobados:</h3>
-                <ul>
-                    <li>Reduce el estrés al liberar endorfinas y oxitocina</li>
-                    <li>Mejora la calidad del sueño</li>
-                    <li>Ayuda a conocer las respuestas sexuales del propio cuerpo</li>
-                    <li>Puede aliviar el dolor menstrual (Colegio Americano de Obstetras y Ginecólogos)</li>
-                </ul>
-                
-                <h3>Mitos desmentidos por la ciencia:</h3>
-                <ul>
-                    <li><strong>Causa infertilidad:</strong> FALSO - No existe relación alguna (Profamilia, 2023)</li>
-                    <li><strong>Provoca trastornos mentales:</strong> FALSO - La APA lo considera una práctica normal</li>
-                    <li><strong>Reduce el rendimiento deportivo:</strong> FALSO - No hay evidencia científica</li>
-                </ul>
-                
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> OMS (2022). Salud Sexual y Reproductiva. Profamilia Colombia (2023). Mitos y realidades sobre sexualidad. American Psychological Association (2021). Healthy Sexual Practices.</p>
-                </div>
-            </section>
-
-            <section id="afectividad" class="content-section">
-                <h2>Afectividad y Relaciones Saludables en Adolescentes</h2>
-                <p>Según UNICEF, el desarrollo de habilidades emocionales en adolescentes reduce en un 40% las relaciones tóxicas. En Colombia, el 65% de jóvenes reporta dificultades para expresar afecto (Profamilia, 2023).</p>
-                
-                <h3>Componentes de relaciones saludables:</h3>
-                <ul>
-                    <li><strong>Comunicación asertiva:</strong> Expresar sentimientos sin agresión</li>
-                    <li><strong>Límites claros:</strong> Respetar espacio personal y decisiones</li>
-                    <li><strong>Empatía:</strong> Validar las emociones del otro</li>
-                    <li><strong>Resolución de conflictos:</strong> Manejar desacuerdos con respeto</li>
-                </ul>
-            
-                <div class="highlight">
-                    <p><strong>Dato:</strong> El 78% de jóvenes con buena comunicación afectiva reportan mayor satisfacción en sus relaciones (ENS, 2021).</p>
-                </div>
-            
-                <div class="highlight">
-                    <p><strong>¿Quieres saber más?</strong> Puedes explorar este recurso especialmente diseñado para jóvenes sobre relaciones afectivas saludables: 
+<header>
+<button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+    ☰
+</button>
+<img alt="Logo Guía Sexualidad" class="logo" src="logo.png"/>
+<h1>Guía Interactiva de Educación Sexual y Emocional</h1>
+</header>
+<div class="container">
+<nav class="sidebar">
+<h2>Temario</h2>
+<ul>
+<li><a data-target="inicio" href="#" class="active"><span class="icon">🏠</span>Inicio</a></li>
+<li class="category-title">Salud Sexual y Emocional</li>
+<li><a data-target="masturbacion" href="#"><span class="icon">🖐️</span>Masturbación</a></li>
+<li><a data-target="afectividad" href="#"><span class="icon">💖</span>Afectividad</a></li>
+<li><a data-target="consentimiento" href="#"><span class="icon">🤝</span>Consentimiento</a></li>
+<li><a data-target="autoconocimiento" href="#"><span class="icon">🧘</span>Autoconocimiento</a></li>
+<li><a data-target="consecuencias" href="#"><span class="icon">⚠️</span>Consecuencias</a></li>
+<li class="category-title">Violencia y Derechos</li>
+<li><a data-target="abuso" href="#"><span class="icon">🚫</span>Abuso Sexual</a></li>
+<li><a data-target="violencia-genero" href="#"><span class="icon">♀️♂️</span>Violencia de Género</a></li>
+<li><a data-target="edad-consentimiento" href="#"><span class="icon">⚖️</span>Edad de Consentimiento</a></li>
+<li><a data-target="derechos-sexuales" href="#"><span class="icon">📜</span>Derechos Sexuales</a></li>
+<li><a data-target="prevenir-violencia" href="#"><span class="icon">🛡️</span>Prevenir Violencia</a></li>
+<li class="category-title">Historia y Cultura</li>
+<li><a data-target="tabues-historia" href="#"><span class="icon">⏳</span>Tabúes Sexuales</a></li>
+<li><a data-target="sexualidad-culturas" href="#"><span class="icon">🌍</span>Sexualidad y Culturas</a></li>
+<li><a data-target="fetiches-fantasias" href="#"><span class="icon">💭</span>Fetiches y Fantasías</a></li>
+<li><a data-target="influencia-religion" href="#"><span class="icon">🛐</span>Religión y Familia</a></li>
+<li><a data-target="cultura-creencias" href="#"><span class="icon">🌐</span>Cultura y Creencias</a></li>
+<li class="category-title">Prácticas Sexuales y Cuidado</li>
+<li><a data-target="preservativos" href="#"><span class="icon">🛡️</span>Uso de Preservativos</a></li>
+<li><a data-target="higiene-post" href="#"><span class="icon">🧼</span>Higiene Post-Relaciones</a></li>
+<li><a data-target="frecuencia-sexual" href="#"><span class="icon">⚖️</span>Frecuencia Sexual</a></li>
+<li><a data-target="riesgos-sin-proteccion" href="#"><span class="icon">🚨</span>Riesgos sin Protección</a></li>
+<li><a data-target="beneficios-vida-sexual" href="#"><span class="icon">😊</span>Beneficios Vida Sexual</a></li>
+</ul>
+</nav>
+<main class="content">
+<section class="content-section active" id="inicio">
+<h2>Bienvenida/o a la Guía de Educación Sexual</h2>
+<p>Esta guía está diseñada para ofrecerte información clara, científica y respetuosa sobre la sexualidad. Nuestro objetivo es promover el autoconocimiento, el cuidado mutuo y la toma de decisiones informadas.</p>
+<p>La sexualidad es una parte integral del ser humano y vivirla de manera saludable y responsable contribuye a nuestro bienestar general. Explora los temas del menú para aprender más.</p>
+<div class="highlight">
+<p><strong>Recuerda:</strong> La educación sexual integral es un derecho. Infórmate, pregunta y cuida de ti y de los demás.</p>
+</div>
+</section>
+<!-- Salud Sexual y Emocional -->
+<section class="content-section" id="masturbacion">
+<h2>Masturbación: Mitos, Realidades y Salud</h2>
+<p>La masturbación es una práctica sexual normal y saludable reconocida por organizaciones médicas internacionales. Según la OMS, es "una forma natural de exploración sexual que no causa daño físico o psicológico" (OMS, 2022).</p>
+<div class="highlight">
+<p><strong>Dato clave:</strong> El 95% de los hombres y 89% de las mujeres reportan haber tenido experiencias de masturbación (Kinsey Institute, 2021).</p>
+</div>
+<h3>Beneficios comprobados:</h3>
+<ul>
+<li>Reduce el estrés al liberar endorfinas y oxitocina</li>
+<li>Mejora la calidad del sueño</li>
+<li>Ayuda a conocer las respuestas sexuales del propio cuerpo</li>
+<li>Puede aliviar el dolor menstrual (Colegio Americano de Obstetras y Ginecólogos)</li>
+</ul>
+<h3>Mitos desmentidos por la ciencia:</h3>
+<ul>
+<li><strong>Causa infertilidad:</strong> FALSO - No existe relación alguna (Profamilia, 2023)</li>
+<li><strong>Provoca trastornos mentales:</strong> FALSO - La APA lo considera una práctica normal</li>
+<li><strong>Reduce el rendimiento deportivo:</strong> FALSO - No hay evidencia científica</li>
+</ul>
+<div class="reference">
+<p><strong>Fuentes:</strong> OMS (2022). Salud Sexual y Reproductiva. Profamilia Colombia (2023). Mitos y realidades sobre sexualidad. American Psychological Association (2021). Healthy Sexual Practices.</p>
+</div>
+</section>
+<section class="content-section" id="afectividad">
+<h2>Afectividad y Relaciones Saludables en Adolescentes</h2>
+<p>Según UNICEF, el desarrollo de habilidades emocionales en adolescentes reduce en un 40% las relaciones tóxicas. En Colombia, el 65% de jóvenes reporta dificultades para expresar afecto (Profamilia, 2023).</p>
+<h3>Componentes de relaciones saludables:</h3>
+<ul>
+<li><strong>Comunicación asertiva:</strong> Expresar sentimientos sin agresión</li>
+<li><strong>Límites claros:</strong> Respetar espacio personal y decisiones</li>
+<li><strong>Empatía:</strong> Validar las emociones del otro</li>
+<li><strong>Resolución de conflictos:</strong> Manejar desacuerdos con respeto</li>
+</ul>
+<div class="highlight">
+<p><strong>Dato:</strong> El 78% de jóvenes con buena comunicación afectiva reportan mayor satisfacción en sus relaciones (ENS, 2021).</p>
+</div>
+<div class="highlight">
+<p><strong>¿Quieres saber más?</strong> Puedes explorar este recurso especialmente diseñado para jóvenes sobre relaciones afectivas saludables: 
                     <a href="https://www.plannedparenthood.org/es/temas-de-salud/para-adolescentes/relaciones/relaciones-101" target="_blank">
                     haz clic aquí</a>.</p>
-                </div>
-            
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> UNICEF (2022). Educación emocional en adolescentes. Profamilia Colombia (2023). Encuesta Nacional de Relaciones.</p>
-                </div>
-            </section>
-
-            <section id="consentimiento" class="content-section">
-                <h2>Consentimiento Sexual y Marco Legal en Colombia</h2>
-                <p>La Ley 1719 de 2014 en Colombia protege el derecho a la integridad sexual y establece que el consentimiento debe ser "libre, voluntario e informado". Según UNICEF, "el consentimiento es un proceso continuo que puede retirarse en cualquier momento" (UNICEF, 2021).</p>
-                
-                <h3>Aspectos legales clave en Colombia:</h3>
-                <ul>
-                    <li>La edad de consentimiento sexual es 14 años</li>
-                    <li>Relaciones con menores de 14 años constituyen abuso sexual</li>
-                    <li>El "Sí es Sí": Reforma legal de 2023 que fortalece la protección</li>
-                    <li>Penas de 13-30 años por violación</li>
-                </ul>
-                
-                <h3>¿Qué NO es consentimiento?</h3>
-                <ul>
-                    <li>Silencio o falta de resistencia</li>
-                    <li>Consentimiento previo en otras ocasiones</li>
-                    <li>Relación de pareja o matrimonio</li>
-                    <li>Bajo efectos de alcohol o drogas</li>
-                </ul>
-                
-                <div class="highlight">
-                    <p><strong>Ruta de denuncia:</strong> En Colombia, denuncia por abuso sexual al CAIVAS: Línea 155 o 122. Atención 24/7 con enfoque de género.</p>
-                </div>
-                
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> UNICEF (2021). Educación para la prevención. Ley 1719 de 2014. Ley 2197 de 2022 (Ley Sí es Sí). Fiscalía General de la Nación.</p>
-                </div>
-            </section>
-
-            <section id="autoconocimiento" class="content-section">
-                <h2>Autoconocimiento Corporal en Adolescentes Colombianos</h2>
-                <p>Conocerse a uno mismo es muy importante para tener una sexualidad saludable. Según el Ministerio de Salud (2022), solo el 40% de los adolescentes colombianos sabe identificar bien sus órganos sexuales.</p>
-                
-                <h3>Beneficios de conocerte mejor:</h3>
-                <ul>
-                    <li>Saber qué cambios son normales y cuáles necesitan atención</li>
-                    <li>Hablar con confianza con médicos o enfermeros</li>
-                    <li>Detectar a tiempo infecciones o problemas de salud</li>
-                    <li>Sentirte más seguro y orgulloso de tu cuerpo</li>
-                </ul>
-                
-                <h3>¿Dónde puedes aprender más?</h3>
-                <ul>
-                    <li><strong><a href="https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf" target="_blank" rel="noopener noreferrer">Cartilla de Actividades Pedagógicas de Autocuidado</a></strong>: incluye imágenes, ejercicios y explicaciones fáciles de entender.</li>
-                </ul>
-                
-                <div class="reference">
-                    <p><strong>Fuente:</strong> Cartilla de Actividades Pedagógicas de Autocuidado. NRC (2021). Recuperado de: <a href="https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf" target="_blank" rel="noopener noreferrer">https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf</a></p>
-                </div>
-            </section>
-
-            <section id="consecuencias" class="content-section">
-                <h2>Consecuencias de una Sexualidad Irresponsable en Colombia</h2>
-                <p>En Colombia, cada día 68 adolescentes quedan embarazadas y 23 contraen ITS, cifras reportadas por Profamilia y el Instituto Nacional de Salud <sup><a href="#ref-consecuencias">[1]</a></sup>. Estas son consecuencias de prácticas sexuales sin información y protección.</p>
-                
-                <h3>Datos nacionales:</h3>
-                <ul>
-                    <li>1 de cada 5 embarazos es en adolescentes (15-19 años)</li>
-                    <li>El 30% de nuevos casos de VIH se presenta en jóvenes menores de 25 años</li>
-                    <li>El 40% de adolescentes no usa protección en su primera relación sexual</li>
-                </ul>
-                
-                <h3>Impacto psicosocial:</h3>
-                <ul>
-                    <li>Deserción escolar: el 60% de madres adolescentes abandona sus estudios <sup><a href="#ref-consecuencias">[1]</a></sup></li>
-                    <li>Pobreza intergeneracional: los hijos de madres adolescentes tienen 3 veces más riesgo de crecer en condiciones de pobreza</li>
-                    <li>Problemas de salud mental: se reporta depresión o ansiedad en el 45% de los casos</li>
-                </ul>
-                
-                <div class="highlight">
-                    <p><strong>Recursos:</strong> Línea de atención Profamilia: 01 8000 110 900. Programa <em>“Prevenir es mi Cuento”</em> del ICBF: <a href="https://www.icbf.gov.co/programas-y-estrategias/prevenir-es-mi-cuento" target="_blank">Ver más</a></p>
-                </div>
-            
-                <section id="materiales-adicionales">
-                    <h3>Materiales para profundizar</h3>
-                    <ul>
-                        <li><a href="https://profamilia.org.co/wp-content/uploads/2023/03/NOTA-POLITICA_PROFAMILIA.pdf" target="_blank">Nota Política: Embarazo en Adolescentes en Colombia – Profamilia (PDF)</a></li>
-                        <li><a href="https://www.dane.gov.co/index.php/estadisticas-por-tema/salud" target="_blank">Encuesta Nacional de Demografía y Salud (ENDS) – DANE</a></li>
-                        <li><a href="https://www.icbf.gov.co/sites/default/files/modulo_3.pdf" target="_blank">Módulo 3: Prevención del Embarazo Adolescente – ICBF (PDF)</a></li>
-                    </ul>
-                </section>
-                
-                <div class="reference">
-                    <p id="ref-consecuencias"><strong>Fuentes:</strong></p>
-                    <ul>
-                        <li>Profamilia. (2023). <i>Informe Anual de Salud Sexual y Reproductiva</i>. Recuperado de: https://profamilia.org.co/educacion/</li>
-                        <li>DANE. (2022). <i>Encuesta Nacional de Demografía y Salud - ENDS</i>. Recuperado de: https://www.dane.gov.co</li>
-                        <li>ICBF. (2023). <i>Programa Prevenir es mi Cuento</i>. Recuperado de: https://www.icbf.gov.co/programas-y-estrategias/prevenir-es-mi-cuento</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Violencia y Derechos -->
-            <section id="abuso" class="content-section">
-                <h2>Abuso Sexual: Recursos Actualizados en Colombia</h2>
-                <p>Según el Instituto Nacional de Medicina Legal, en 2022 se reportaron 28,658 casos de violencia sexual en Colombia, con un 86% de víctimas menores de edad. UNICEF destaca que "la prevención y respuesta temprana son fundamentales" (UNICEF, 2023).</p>
-              
-                <h3>Ruta de atención en Colombia:</h3>
-                <ol>
-                  <li><strong>Denuncia inmediata:</strong> Línea 155 (Mujer), 141 (ICBF) o 122 (Fiscalía).</li>
-                  <li><strong>Atención médica:</strong> Servicios de salud EPS con protocolo IVA.</li>
-                  <li><strong>Acompañamiento:</strong> Comisarías de Familia y CAIVAS.</li>
-                  <li><strong>Atención psicológica:</strong> Línea 106 (Salud Mental).</li>
-                </ol>
-              
-                <h3>Derechos de las víctimas:</h3>
-                <ul>
-                  <li>Atención integral gratuita en salud.</li>
-                  <li>Protección inmediata por autoridades.</li>
-                  <li>Asesoría jurídica especializada.</li>
-                  <li>Confidencialidad del proceso.</li>
-                </ul>
-              
-                <div class="highlight">
-                  <p><strong>Nuevos recursos:</strong></p>
-                  <ul>
-                    <li>
-                      <strong>Chatbot de Profamilia "Emilia":</strong> Orientación anónima y confidencial sobre salud sexual y reproductiva. Accede a través de <a href="https://profamilia.org.co/profa-te-conecta/asesoria-virtual-gratuita/" target="_blank">Profa Te Conecta</a> o escribe al WhatsApp <a href="https://wa.me/573185310121" target="_blank">318 531 0121</a>.
+</div>
+<div class="reference">
+<p><strong>Fuentes:</strong> UNICEF (2022). Educación emocional en adolescentes. Profamilia Colombia (2023). Encuesta Nacional de Relaciones.</p>
+</div>
+</section>
+<section class="content-section" id="consentimiento">
+<h2>Consentimiento Sexual y Marco Legal en Colombia</h2>
+<p>La Ley 1719 de 2014 en Colombia protege el derecho a la integridad sexual y establece que el consentimiento debe ser "libre, voluntario e informado". Según UNICEF, "el consentimiento es un proceso continuo que puede retirarse en cualquier momento" (UNICEF, 2021).</p>
+<h3>Aspectos legales clave en Colombia:</h3>
+<ul>
+<li>La edad de consentimiento sexual es 14 años</li>
+<li>Relaciones con menores de 14 años constituyen abuso sexual</li>
+<li>El "Sí es Sí": Reforma legal de 2023 que fortalece la protección</li>
+<li>Penas de 13-30 años por violación</li>
+</ul>
+<h3>¿Qué NO es consentimiento?</h3>
+<ul>
+<li>Silencio o falta de resistencia</li>
+<li>Consentimiento previo en otras ocasiones</li>
+<li>Relación de pareja o matrimonio</li>
+<li>Bajo efectos de alcohol o drogas</li>
+</ul>
+<div class="highlight">
+<p><strong>Ruta de denuncia:</strong> En Colombia, denuncia por abuso sexual al CAIVAS: Línea 155 o 122. Atención 24/7 con enfoque de género.</p>
+</div>
+<div class="reference">
+<p><strong>Fuentes:</strong> UNICEF (2021). Educación para la prevención. Ley 1719 de 2014. Ley 2197 de 2022 (Ley Sí es Sí). Fiscalía General de la Nación.</p>
+</div>
+</section>
+<section class="content-section" id="autoconocimiento">
+<h2>Autoconocimiento Corporal en Adolescentes Colombianos</h2>
+<p>Conocerse a uno mismo es muy importante para tener una sexualidad saludable. Según el Ministerio de Salud (2022), solo el 40% de los adolescentes colombianos sabe identificar bien sus órganos sexuales.</p>
+<h3>Beneficios de conocerte mejor:</h3>
+<ul>
+<li>Saber qué cambios son normales y cuáles necesitan atención</li>
+<li>Hablar con confianza con médicos o enfermeros</li>
+<li>Detectar a tiempo infecciones o problemas de salud</li>
+<li>Sentirte más seguro y orgulloso de tu cuerpo</li>
+</ul>
+<h3>¿Dónde puedes aprender más?</h3>
+<ul>
+<li><strong><a href="https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf" rel="noopener noreferrer" target="_blank">Cartilla de Actividades Pedagógicas de Autocuidado</a></strong>: incluye imágenes, ejercicios y explicaciones fáciles de entender.</li>
+</ul>
+<div class="reference">
+<p><strong>Fuente:</strong> Cartilla de Actividades Pedagógicas de Autocuidado. NRC (2021). Recuperado de: <a href="https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf" rel="noopener noreferrer" target="_blank">https://nrc.org.co/wp-content/uploads/2021/04/cartilla-NRC_versiondigital1.pdf</a></p>
+</div>
+</section>
+<section class="content-section" id="consecuencias">
+<h2>Consecuencias de una Sexualidad Irresponsable en Colombia</h2>
+<p>En Colombia, cada día 68 adolescentes quedan embarazadas y 23 contraen ITS, cifras reportadas por Profamilia y el Instituto Nacional de Salud <sup><a href="#ref-consecuencias">[1]</a></sup>. Estas son consecuencias de prácticas sexuales sin información y protección.</p>
+<h3>Datos nacionales:</h3>
+<ul>
+<li>1 de cada 5 embarazos es en adolescentes (15-19 años)</li>
+<li>El 30% de nuevos casos de VIH se presenta en jóvenes menores de 25 años</li>
+<li>El 40% de adolescentes no usa protección en su primera relación sexual</li>
+</ul>
+<h3>Impacto psicosocial:</h3>
+<ul>
+<li>Deserción escolar: el 60% de madres adolescentes abandona sus estudios <sup><a href="#ref-consecuencias">[1]</a></sup></li>
+<li>Pobreza intergeneracional: los hijos de madres adolescentes tienen 3 veces más riesgo de crecer en condiciones de pobreza</li>
+<li>Problemas de salud mental: se reporta depresión o ansiedad en el 45% de los casos</li>
+</ul>
+<div class="highlight">
+<p><strong>Recursos:</strong> Línea de atención Profamilia: 01 8000 110 900. Programa <em>“Prevenir es mi Cuento”</em> del ICBF: <a href="https://www.icbf.gov.co/programas-y-estrategias/prevenir-es-mi-cuento" target="_blank">Ver más</a></p>
+</div>
+<section id="materiales-adicionales">
+<h3>Materiales para profundizar</h3>
+<ul>
+<li><a href="https://profamilia.org.co/wp-content/uploads/2023/03/NOTA-POLITICA_PROFAMILIA.pdf" target="_blank">Nota Política: Embarazo en Adolescentes en Colombia – Profamilia (PDF)</a></li>
+<li><a href="https://www.dane.gov.co/index.php/estadisticas-por-tema/salud" target="_blank">Encuesta Nacional de Demografía y Salud (ENDS) – DANE</a></li>
+<li><a href="https://www.icbf.gov.co/sites/default/files/modulo_3.pdf" target="_blank">Módulo 3: Prevención del Embarazo Adolescente – ICBF (PDF)</a></li>
+</ul>
+</section>
+<div class="reference">
+<p id="ref-consecuencias"><strong>Fuentes:</strong></p>
+<ul>
+<li>Profamilia. (2023). <i>Informe Anual de Salud Sexual y Reproductiva</i>. Recuperado de: https://profamilia.org.co/educacion/</li>
+<li>DANE. (2022). <i>Encuesta Nacional de Demografía y Salud - ENDS</i>. Recuperado de: https://www.dane.gov.co</li>
+<li>ICBF. (2023). <i>Programa Prevenir es mi Cuento</i>. Recuperado de: https://www.icbf.gov.co/programas-y-estrategias/prevenir-es-mi-cuento</li>
+</ul>
+</div>
+</section>
+<!-- Violencia y Derechos -->
+<section class="content-section" id="abuso">
+<h2>Abuso Sexual: Recursos Actualizados en Colombia</h2>
+<p>Según el Instituto Nacional de Medicina Legal, en 2022 se reportaron 28,658 casos de violencia sexual en Colombia, con un 86% de víctimas menores de edad. UNICEF destaca que "la prevención y respuesta temprana son fundamentales" (UNICEF, 2023).</p>
+<h3>Ruta de atención en Colombia:</h3>
+<ol>
+<li><strong>Denuncia inmediata:</strong> Línea 155 (Mujer), 141 (ICBF) o 122 (Fiscalía).</li>
+<li><strong>Atención médica:</strong> Servicios de salud EPS con protocolo IVA.</li>
+<li><strong>Acompañamiento:</strong> Comisarías de Familia y CAIVAS.</li>
+<li><strong>Atención psicológica:</strong> Línea 106 (Salud Mental).</li>
+</ol>
+<h3>Derechos de las víctimas:</h3>
+<ul>
+<li>Atención integral gratuita en salud.</li>
+<li>Protección inmediata por autoridades.</li>
+<li>Asesoría jurídica especializada.</li>
+<li>Confidencialidad del proceso.</li>
+</ul>
+<div class="highlight">
+<p><strong>Nuevos recursos:</strong></p>
+<ul>
+<li>
+<strong>Chatbot de Profamilia "Emilia":</strong> Orientación anónima y confidencial sobre salud sexual y reproductiva. Accede a través de <a href="https://profamilia.org.co/profa-te-conecta/asesoria-virtual-gratuita/" target="_blank">Profa Te Conecta</a> o escribe al WhatsApp <a href="https://wa.me/573185310121" target="_blank">318 531 0121</a>.
                     </li>
-                    <li>
-                      <strong>App "No Estás Sola" del MinTIC:</strong> Aplicación oficial con geolocalización de CAIVAS y líneas de ayuda para mujeres en situación de violencia. Disponible en tiendas de aplicaciones móviles.
+<li>
+<strong>App "No Estás Sola" del MinTIC:</strong> Aplicación oficial con geolocalización de CAIVAS y líneas de ayuda para mujeres en situación de violencia. Disponible en tiendas de aplicaciones móviles.
                     </li>
-                  </ul>
-                </div>
-              
-                <div class="reference">
-                  <p><strong>Fuentes:</strong> Medicina Legal Colombia (2022). Forensis. UNICEF Colombia (2023). Protección contra la violencia. Ministerio de Salud (2023). Rutas de atención. Profamilia (2023). Asesoría Virtual Gratuita. MinTIC (2023). Aplicaciones recomendadas.</p>
-                </div>
-              </section>
-            
-              <section id="violencia-genero" class="content-section">
-                <h2>Violencia de Género en Colombia: Datos y Recursos</h2>
-                <p>En 2022, se reportaron 58,290 casos de violencia basada en género en Colombia, siendo el 73% de las víctimas mujeres entre los 14 y 24 años, según el informe Forensis del Instituto Nacional de Medicina Legal <sup><a href="#ref-violencia-genero">[1]</a></sup>.</p>
-            
-                <h3>Formas de violencia más comunes en jóvenes:</h3>
-                <div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 30px;">
-                    <ul style="flex: 1; min-width: 250px;">
-                        <li>Violencia psicológica (45%): Control, humillación</li>
-                        <li>Violencia física (30%): Golpes, empujones</li>
-                        <li>Violencia sexual (20%): Acoso, violación en citas</li>
-                        <li>Violencia digital (5%): Sextorsión, ciberacoso</li>
-                    </ul>
-                    <div style="flex: 1; min-width: 250px;">
-                        <canvas id="graficoViolencia" width="52" height="52"></canvas>
-                    </div>
-                </div>
-            
-                <h3>¿Cómo identificar relaciones tóxicas?</h3>
-                <ul>
-                    <li>Control sobre tu ropa, amistades o redes sociales</li>
-                    <li>Críticas constantes a tu apariencia o capacidades</li>
-                    <li>Presión para actividades sexuales no deseadas</li>
-                    <li>Aislamiento de familiares y amigos</li>
-                </ul>
-            
-                <div class="highlight">
-                    <p><strong>Rutas de atención:</strong> Línea 155 (mujeres víctimas de violencia), Línea 122 (Fiscalía), y App <em>"No Estás Sola"</em> del MinTIC con geolocalización de CAIVAS y comisarías.</p>
-                </div>
-            
-                <section id="materiales-adicionales-violencia">
-                    <h3>Materiales para profundizar</h3>
-                    <ul>
-                        <li><a href="https://colombia.unfpa.org/sites/default/files/pub-pdf/CARTILLA%20UNA%20VIDA%20LIBRE%20DE%20VIOLENCIA-ES%20TU%20DERECHO_2.pdf" target="_blank">Cartilla “Una vida libre de violencia: es tu derecho” – UNFPA Colombia (PDF)</a></li>
-                        <li><a href="https://savethechildren.org.co/material-pedagogico-para-proteger-a-la-ninez-de-la-violencia-sexual-y-basada-en-genero/" target="_blank">Cartilla “Mi cuerpo, mi responsabilidad” – Save the Children Colombia</a></li>
-                        <li><a href="https://rutapacifica.org.co/wp/wp-content/uploads/2023/02/Cartilla-ICCO-jovenes.pdf" target="_blank">Cartilla para jóvenes – Ruta Pacífica de las Mujeres (PDF)</a></li>
-                    </ul>
-                </section>
-            
-                <div class="reference">
-                    <p id="ref-violencia-genero"><strong>Fuentes:</strong></p>
-                    <ul>
-                        <li>Instituto Nacional de Medicina Legal y Ciencias Forenses. (2023). <i>Forensis 2022: Datos para la vida</i>. Recuperado de: https://www.medicinalegal.gov.co</li>
-                        <li>Fiscalía General de la Nación. (2023). <i>Ruta de atención a víctimas de violencia basada en género</i>. https://www.fiscalia.gov.co</li>
-                    </ul>
-                </div>
-            </section>
-            
-            <!-- Script de Chart.js para la gráfica -->
-            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-            <script>
-                const ctx = document.getElementById('graficoViolencia').getContext('2d');
-                new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: ['Psicológica (45%)', 'Física (30%)', 'Sexual (20%)', 'Digital (5%)'],
-                        datasets: [{
-                            data: [45, 30, 20, 5],
-                            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#9b59b6'],
-                            borderColor: '#ffffff',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    color: '#333',
-                                    font: { size: 14 }
-                                }
-                            }
-                        }
-                    }
-                });
-            </script>
-          <section id="edad-consentimiento" class="content-section">
-            <h2>Edad de Consentimiento Sexual en Colombia: Marco Legal</h2>
-            <p>La edad de consentimiento sexual en Colombia es 14 años, según el Artículo 208 del Código Penal. Relaciones sexuales con menores de 14 años constituyen delito de abuso sexual, incluso con aparente consentimiento.</p>
-            
-            <h3>Aspectos legales clave:</h3>
-            <ul>
-                <li><strong>Delito grave:</strong> Penas de 13 a 30 años de prisión.</li>
-                <li><strong>Agravantes:</strong> Si el agresor es familiar, docente o figura de autoridad.</li>
-                <li><strong>Grooming:</strong> Comunicación con fines sexuales con menores es delito (Ley 1098 de 2006).</li>
-                <li><strong>Sexting entre menores:</strong> Intercambio de imágenes íntimas entre adolescentes puede ser delito si un participante es menor de 14 años.</li>
-            </ul>
-            
-            <h3>Datos preocupantes:</h3>
-            <ul>
-                <li>El 35% de víctimas de abuso sexual son menores de 14 años (Fiscalía General de la Nación, 2023).</li>
-                <li>El 70% de agresores son conocidos de la víctima.</li>
-            </ul>
-            
-            <div class="reference">
-                <p><strong>Fuentes:</strong></p>
-                <ul>
-                    <li>Código Penal Colombiano. Artículo 208.</li>
-                    <li>Ley 1098 de 2006 – Código de Infancia y Adolescencia.</li>
-                    <li>Fiscalía General de la Nación. (2023). Estadísticas delitos sexuales. <a href="https://www.fiscalia.gov.co" target="_blank">https://www.fiscalia.gov.co</a></li>
-                </ul>
-            </div>
-        </section>
-
-            <section id="derechos-sexuales" class="content-section">
-                <h2>Derechos Sexuales y Reproductivos en Colombia</h2>
-                <p>Según la Organización Mundial de la Salud (OMS), los derechos sexuales incluyen el derecho a la información científica, a la educación sexual y al acceso a servicios de salud sexual y reproductiva de calidad. Estos derechos buscan garantizar el bienestar físico, emocional, mental y social en relación con la sexualidad (OMS, 2015).</p>
-                <p>En Colombia, estos derechos están protegidos por diversas decisiones de la Corte Constitucional, entre ellas la Sentencia C-055 de 2022, que amplió el acceso a la Interrupción Voluntaria del Embarazo hasta la semana 24 de gestación.</p>
-                
-                <h3>Derechos fundamentales:</h3>
-                <ul>
-                    <li>Acceso gratuito a métodos anticonceptivos, incluso para menores de edad, bajo principios de confidencialidad y autonomía</li>
-                    <li>Confidencialidad en servicios de salud sexual (Ley Estatutaria 1751 de 2015)</li>
-                    <li>Educación sexual integral como parte del derecho a la educación y a la salud</li>
-                    <li>Interrupción Voluntaria del Embarazo (IVE) hasta la semana 24, y sin límite en tres causales (Sentencia C-055 de 2022)</li>
-                </ul>
-                
-                <h3>Datos sobre educación sexual en Colombia:</h3>
-                <ul>
-                    <li>El 65% de adolescentes recibe información sexual principalmente de internet (Encuesta Nacional de Salud Escolar, ENSIN 2021)</li>
-                    <li>Solo el 40% de las instituciones educativas implementa de forma completa la Educación Integral en Sexualidad (MEN, 2022)</li>
-                    <li>Profamilia atiende más de 500.000 consultas anuales de adolescentes relacionadas con salud sexual y reproductiva (Profamilia, 2023)</li>
-                </ul>
-                
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> OMS (2015). Salud sexual y derechos sexuales. Corte Constitucional de Colombia (Sentencia C-055/22). Ministerio de Educación Nacional (2022). Profamilia (2023). Informe Anual. ENSIN (2021).</p>
-                </div>
-            </section>
-            
-            <section id="prevenir-violencia" class="content-section">
-                <h2>Prevención de Violencia Sexual para Estudiantes</h2>
-                <p>En Colombia, el 85% de casos de violencia sexual en adolescentes ocurre en entornos cercanos: hogar, escuela o comunidad (ICBF, 2023). La prevención empieza con educación.</p>
-                
-                <h3>Estrategias prácticas para estudiantes:</h3>
-                <ul>
-                    <li><strong>Reconocer señales de alerta:</strong> Comportamientos inapropiados de adultos o compañeros, tocamientos no consentidos.</li>
-                    <li><strong>Establecer límites claros:</strong> Decir "NO" de manera firme ante contactos físicos no deseados.</li>
-                    <li><strong>Redes de apoyo:</strong> Identificar al menos tres adultos de confianza para pedir ayuda.</li>
-                    <li><strong>Seguridad digital:</strong> No compartir imágenes íntimas y bloquear contactos sospechosos.</li>
-                    <li><strong>Educación entre pares:</strong> Formar grupos escolares que promuevan la prevención y el respeto.</li>
-                    <li><strong>Practicar comunicación asertiva:</strong> Expresar con confianza sus sentimientos y experiencias.</li>
-                    <li><strong>Conocer sus derechos:</strong> Informarse sobre la ley y mecanismos de protección para menores.</li>
-                    <li><strong>Crear códigos de seguridad:</strong> Acuerdos con familiares o amigos para pedir ayuda en situaciones de riesgo (por ejemplo, mensajes clave o señales).</li>
-                    <li><strong>Participar en talleres y charlas:</strong> Aprovechar actividades escolares sobre prevención para fortalecer conocimientos y habilidades.</li>
-                    <li><strong>Fomentar el respeto mutuo:</strong> Promover relaciones basadas en el consentimiento y la igualdad.</li>
-                    <li><strong>Registrar incidentes:</strong> Anotar o documentar cualquier situación que les haga sentir incómodos para reportarla oportunamente.</li>
-                </ul>
-                
-                <h3>Recursos educativos recomendados:</h3>
-                <ul>
-                    <li><a href="https://www.icbf.gov.co/sites/default/files/procesos/pu21.mo24.pp_cartillas_encuentros_fortalecimiento_comunitario_-_violencias_sexuales_v1.pdf" target="_blank">Cartillas sobre prevención de las violencias sexuales - ICBF</a></li>
-                    <li><a href="https://generoymetodologias.org/recursos-metodologicos/publicaciones/respetame-cartilla-para-la-prevencion-de-violencia-sexual-en-ninas-ninos-y-adolescentes/" target="_blank">¡Respétame! Cartilla para la prevención de violencia sexual en niñas, niños y adolescentes</a></li>
-                </ul>
-                
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> ICBF (2023). Prevención violencia sexual infantil. Fundación PAS (2023). Prevención del Abuso Sexual Infantil. Género y Metodologías (2023). ¡Respétame! Cartilla para la prevención de violencia sexual en niñas, niños y adolescentes.</p>
-                </div>
-            </section>
-
-            <!-- Historia y Cultura -->
-            <section id="tabues-historia" class="content-section">
-                <h2>Historia y Evolución de los Tabúes Sexuales</h2>
-                <p>Los tabúes sexuales son prohibiciones o restricciones sociales y culturales relacionadas con ciertos comportamientos, temas o expresiones sexuales. Han variado enormemente a lo largo de la historia y entre culturas.</p>
-                <h3>Orígenes y Funciones:</h3>
-                <ul>
-                    <li><strong>Control Social:</strong> Regular comportamientos para mantener el orden social, estructuras familiares o linajes.</li>
-                    <li><strong>Religión:</strong> Muchas religiones han establecido normas estrictas sobre la sexualidad, asociando ciertos actos con el pecado o la impureza.</li>
-                    <li><strong>Salud e Higiene:</strong> Preocupaciones (a veces erróneas) sobre enfermedades o la "degeneración" de la raza.</li>
-                    <li><strong>Poder y Jerarquía:</strong> Restringir la sexualidad de ciertos grupos (ej. mujeres, clases bajas) para mantener el poder de otros.</li>
-                </ul>
-                <h3>Evolución:</h3>
-                <p>Lo que se considera tabú en una época puede ser aceptado en otra. Por ejemplo, la homosexualidad, fuertemente reprimida en muchas sociedades occidentales durante siglos, ha ganado mayor aceptación y reconocimiento legal en décadas recientes. La masturbación, antes vista como una enfermedad, hoy se considera normal. La educación sexual misma fue un tabú.</p>
-                <p>Comprender la historia de los tabúes nos ayuda a ver cómo las normas sexuales son construcciones sociales que cambian con el tiempo.</p>
-                <p><em>(Expandir con ejemplos históricos específicos, el impacto de movimientos sociales)</em></p>
-            </section>
-
-            <section id="sexualidad-culturas" class="content-section">
-                <h2>Sexualidad en Diferentes Culturas y Regiones</h2>
-                <p>La forma en que se entiende, expresa y regula la sexualidad varía enormemente alrededor del mundo. No existe una única "forma natural" de vivir la sexualidad.</p>
-                <h3>Ejemplos de Diversidad Cultural:</h3>
-                <ul>
-                    <li><strong>Roles de Género:</strong> Algunas culturas tienen roles de género muy estrictos, mientras que otras reconocen múltiples géneros o roles más fluidos.</li>
-                    <li><strong>Matrimonio y Relaciones:</strong> Prácticas como la monogamia, poligamia, matrimonios arreglados, o la edad para casarse varían ampliamente.</li>
-                    <li><strong>Actitudes hacia la Homosexualidad:</strong> Desde la aceptación e integración hasta la criminalización y persecución.</li>
-                    <li><strong>Expresión de la Afectividad:</strong> Las demostraciones públicas de afecto son comunes en algunas culturas y mal vistas en otras.</li>
-                    <li><strong>Ritos de Iniciación:</strong> Algunas culturas tienen ceremonias que marcan la transición a la madurez sexual.</li>
-                </ul>
-                <p>Es importante abordar la diversidad cultural con respeto y evitar juicios etnocéntricos (juzgar otras culturas desde los estándares de la propia). Sin embargo, el respeto cultural no debe implicar la aceptación de prácticas que violen los derechos humanos (como la mutilación genital femenina o el matrimonio infantil).</p>
-                <p><em>(Expandir con más ejemplos específicos y el concepto de relativismo cultural vs. derechos universales)</em></p>
-            </section>
-            
-            <section id="fetiches-fantasias" class="content-section">
-                <h2>Construcción Cultural de los Fetiches y Fantasías</h2>
-                <p>Las fantasías sexuales son imágenes mentales o escenarios que provocan excitación sexual. Los fetiches son un tipo de parafilia donde la excitación sexual se asocia intensamente con objetos no genitales, partes específicas del cuerpo no sexuales, o situaciones particulares.</p>
-                <h3>Construcción Cultural:</h3>
-                <p>Si bien las bases biológicas del deseo sexual son universales, lo que consideramos erótico, incluyendo fetiches y fantasías, está fuertemente influenciado por nuestra cultura y experiencias personales.</p>
-                <ul>
-                    <li><strong>Medios de Comunicación:</strong> La publicidad, el cine, la pornografía pueden moldear lo que se percibe como atractivo o deseable.</li>
-                    <li><strong>Normas Sociales:</strong> Lo que una cultura considera "normal" o "desviado" influye en cómo se desarrollan y expresan las preferencias sexuales.
-                    <li><strong>Experiencias Tempranas:</strong> Asociaciones aprendidas, a menudo inconscientes, pueden dar forma a fantasías y fetiches.</li>
-                </ul>
-                <h3>Normalidad y Límites:</h3>
-                <p>Tener fantasías es completamente normal y saludable. Los fetiches también son comunes y generalmente no son problemáticos. Se considera una parafilia (un patrón de excitación atípico) y solo se vuelve un "trastorno parafílico" si causa angustia significativa a la persona o si implica daño o riesgo de daño a otros (por ejemplo, fetiches que involucran no consentimiento).</p>
-                <p>La clave es el consentimiento y la ausencia de daño o coerción.</p>
-                <p><em>(Expandir con ejemplos de fetiches comunes, la diferencia entre parafilia y trastorno parafílico)</em></p>
-            </section>
-
-            <section id="influencia-religion" class="content-section">
-                <h2>Influencia de la Religión y la Familia en la Percepción de la Sexualidad</h2>
-                <p>La religión y la familia son dos de las influencias más poderosas en cómo las personas entienden y viven su sexualidad.</p>
-                <h3>Influencia de la Religión:</h3>
-                <p>Muchas religiones tienen códigos morales y enseñanzas específicas sobre la sexualidad, que pueden incluir:</p>
-                <ul>
-                    <li><strong>Propósito de la Sexualidad:</strong> A menudo vinculada a la procreación dentro del matrimonio.</li>
-                    <li><strong>Restricciones:</strong> Prohibiciones sobre el sexo prematrimonial, extramatrimonial, la homosexualidad, la masturbación, o el uso de anticonceptivos.</li>
-                    <li><strong>Roles de Género:</strong> Definiciones de lo que se espera de hombres y mujeres en la esfera sexual y familiar.</li>
-                    <li><strong>Valores:</strong> Énfasis en la castidad, la fidelidad, la modestia.</li>
-                </ul>
-                <p>Para muchas personas, la fe proporciona un marco ético valioso. Sin embargo, algunas enseñanzas religiosas pueden entrar en conflicto con los derechos sexuales o generar culpa y ansiedad en torno a la sexualidad.</p>
-                <h3>Influencia de la Familia:</h3>
-                <p>La familia es el primer entorno donde aprendemos sobre relaciones, afecto y, directa o indirectamente, sobre sexualidad.</p>
-                <ul>
-                    <li><strong>Modelos a Seguir:</strong> Los padres y cuidadores modelan (o no) la comunicación abierta, el respeto y la afectividad.</li>
-                    <li><strong>Comunicación:</strong> La disposición de los padres a hablar sobre sexualidad (o su silencio) envía mensajes poderosos.</li>
-                    <li><strong>Valores Transmitidos:</strong> Creencias sobre el noviazgo, el matrimonio, los roles de género, el pudor.</li>
-                </ul>
-                <p>Es importante que las familias promuevan una visión positiva y saludable de la sexualidad, basada en la información, el respeto y el diálogo.</p>
-                <p><em>(Expandir con la diversidad de enfoques dentro de las religiones y familias)</em></p>
-            </section>
-
-            <section id="cultura-creencias" class="content-section">
-                <h2>Cultura, Tabúes y Creencias sobre la Sexualidad</h2>
-                <p>La cultura moldea profundamente nuestras actitudes, creencias y comportamientos sexuales. Lo que se considera "normal", "aceptable" o "deseable" es aprendido socialmente.</p>
-                <h3>Dimensiones Culturales de la Sexualidad:</h3>
-                <ul>
-                    <li><strong>Normas y Valores:</strong> Cada cultura establece reglas (explícitas o implícitas) sobre con quién, cuándo, dónde y cómo se puede expresar la sexualidad.</li>
-                    <li><strong>Símbolos y Significados:</strong> El cuerpo, la desnudez, ciertos actos sexuales, adquieren significados específicos dentro de un contexto cultural.</li>
-                    <li><strong>Lenguaje:</strong> Las palabras que usamos (o evitamos usar) para hablar de sexo reflejan y refuerzan actitudes culturales.</li>
-                    <li><strong>Tabúes:</strong> Como se mencionó, son prohibiciones culturales fuertes. Pueden relacionarse con el incesto, la menstruación, ciertos tipos de contacto sexual, etc.</li>
-                    <li><strong>Mitos y Creencias Populares:</strong> Ideas erróneas sobre la concepción, las ITS, el placer sexual, que se transmiten socialmente.</li>
-                </ul>
-                <p>Es crucial desarrollar un pensamiento crítico sobre las creencias culturales propias y ajenas, reconociendo que muchas son construcciones sociales y no verdades universales. Una perspectiva informada y respetuosa permite cuestionar mitos y tabúes dañinos y promover una sexualidad más libre y saludable, siempre en el marco del respeto a los derechos humanos.</p>
-                <p><em>(Expandir con ejemplos de cómo la globalización y los medios impactan las creencias culturales sobre sexualidad)</em></p>
-            </section>
-            
-            <!-- Prácticas Sexuales y Cuidado -->
-            <section id="preservativos" class="content-section">
-                <h2>Uso Correcto de Preservativos (Masculinos y Femeninos)</h2>
-                <p>Los preservativos (condones) son el único método que ofrece doble protección: previene embarazos no planeados y reduce significativamente el riesgo de transmisión de Infecciones de Transmisión Sexual (ITS), incluyendo el VIH.</p>
-                <h3>Preservativo Masculino (Externo):</h3>
-                <ol>
-                    <li><strong>Verificar Fecha de Caducidad y Empaque:</strong> Asegúrate de que no esté vencido y que el empaque esté intacto (sin roturas, con aire).</li>
-                    <li><strong>Abrir con Cuidado:</strong> Usa los dedos, no los dientes ni objetos afilados, para evitar rasgarlo.</li>
-                    <li><strong>Colocar ANTES de Cualquier Contacto Genital:</strong> Sobre el pene erecto. Si no está circuncidado, retrae el prepucio.</li>
-                    <li><strong>Apretar la Punta:</strong> Para sacar el aire y dejar espacio para el semen.</li>
-                    <li><strong>Desenrollar Completamente:</strong> Hasta la base del pene.</li>
-                    <li><strong>Usar Durante TODA la Relación Sexual.</strong></li>
-                    <li><strong>Retirar Después de Eyacular y ANTES de Perder la Erección:</strong> Sujeta el condón por la base al retirar el pene para evitar que se derrame el semen o que el condón quede dentro.</li>
-                    <li><strong>Desechar Correctamente:</strong> Envuélvelo en papel y tíralo a la basura, NUNCA al inodoro.</li>
-                    <li><strong>Usar uno Nuevo en Cada Acto Sexual.</strong></li>
-                </ol>
-                <h3>Preservativo Femenino (Interno):</h3>
-                <p>Es una funda de poliuretano o nitrilo con dos anillos flexibles en cada extremo. Se inserta en la vagina antes del coito.</p>
-                <ol>
-                    <li><strong>Verificar Fecha y Empaque.</strong></li>
-                    <li><strong>Introducir:</strong> El anillo interno más pequeño se aprieta y se introduce profundamente en la vagina, cerca del cérvix. El anillo externo, más grande, queda fuera cubriendo los genitales externos.</li>
-                    <li><strong>Asegurar que no Esté Torcido</strong> y que el pene entre DENTRO del preservativo, no entre el preservativo y la pared vaginal.</li>
-                    <li><strong>Retirar con Cuidado:</strong> Gira el anillo externo y tira suavemente para sacarlo.</li>
-                    <li><strong>Desechar y Usar uno Nuevo en Cada Acto.</strong></li>
-                </ol>
-                <p><strong>Importante:</strong> Nunca uses un condón masculino y uno femenino al mismo tiempo, la fricción puede romperlos. Usa lubricantes a base de agua o silicona, no a base de aceite (como vaselina o aceites corporales) con condones de látex, ya que pueden dañarlos.</p>
-                <p><em>(Expandir con más detalles, dónde conseguirlos, importancia del lubricante)</em></p>
-            </section>
-
-            <section id="higiene-post" class="content-section">
-                <h2>Higiene Post-Relaciones Sexuales</h2>
-                <p>Mantener una buena higiene después de las relaciones sexuales es importante para prevenir infecciones y mantener la salud genital.</p>
-                <h3>Recomendaciones Generales:</h3>
-                <ul>
-                    <li><strong>Orinar Después del Sexo:</strong> Especialmente para las personas con vulva/vagina, esto ayuda a limpiar la uretra y puede prevenir infecciones urinarias (cistitis).</li>
-                    <li><strong>Lavado Suave Externo:</strong> Lava el área genital externa con agua tibia. Se puede usar un jabón suave, sin perfume y de pH neutro si se desea, pero a menudo el agua es suficiente. Evita jabones fuertes, duchas vaginales o productos perfumados dentro de la vagina, ya que pueden alterar el equilibrio natural de la flora vaginal y causar irritación o infecciones.</li>
-                    <li><strong>Secado Cuidadoso:</strong> Seca el área con una toalla limpia y suave, dando golpecitos en lugar de frotar.</li>
-                    <li><strong>Ropa Interior Limpia:</strong> Usa ropa interior de algodón transpirable.</li>
-                    <li><strong>Hidratación:</strong> Beber agua también contribuye a la salud urinaria.</li>
-                </ul>
-                <h3>Para Personas con Pene:</h3>
-                <p>Lavar el pene con agua tibia, retrayendo el prepucio si no está circuncidado para limpiar debajo. Secar bien.</p>
-                <h3>Para Personas con Vagina:</h3>
-                <p>La vagina tiene un mecanismo de autolimpieza. Las duchas vaginales no son necesarias y pueden ser perjudiciales. El lavado debe ser externo (vulva).</p>
-                <p>Observar cualquier cambio como flujo inusual, mal olor, picazón o dolor, y consultar a un profesional de la salud si ocurren.</p>
-                <p><em>(Expandir sobre la importancia de no usar duchas vaginales, signos de alerta)</em></p>
-            </section>
-            
-            <section id="frecuencia-sexual" class="content-section">
-                <h2>Frecuencia Sexual y Salud Física/Emocional</h2>
-                <p>No existe una "frecuencia sexual normal" o ideal que aplique a todas las personas o parejas. Lo que es saludable y satisfactorio varía enormemente según la edad, estado de salud, circunstancias de la vida, deseo individual y la dinámica de la relación.</p>
-                <h3>Factores que Influyen en la Frecuencia:</h3>
-                <ul>
-                    <li><strong>Deseo Sexual (Libido):</strong> Varía entre individuos y puede fluctuar.</li>
-                    <li><strong>Calidad de la Relación:</strong> La conexión emocional, la comunicación y la satisfacción general en la pareja.</li>
-                    <li><strong>Salud Física y Mental:</strong> Enfermedades, medicamentos, estrés, ansiedad, depresión pueden afectar el deseo.</li>
-                    <li><strong>Edad y Cambios Hormonales.</strong></li>
-                    <li><strong>Estilo de Vida:</strong> Trabajo, hijos, responsabilidades.</li>
-                </ul>
-                <h3>Enfoque Saludable:</h3>
-                <ul>
-                    <li><strong>Calidad sobre Cantidad:</strong> Una vida sexual satisfactoria se basa más en la calidad de las interacciones (intimidad, placer, conexión) que en la frecuencia.</li>
-                    <li><strong>Comunicación:</strong> Hablar abiertamente con la pareja sobre deseos, necesidades y expectativas es crucial.</li>
-                    <li><strong>Consentimiento y Deseo Mutuo:</strong> La actividad sexual debe ser deseada y consensuada por todas las partes.</li>
-                    <li><strong>Bienestar Individual:</strong> La frecuencia debe sentirse bien para ti. Si la falta de sexo o la presión por tenerlo causa angustia, es importante abordarlo.</li>
-                </ul>
-                <p>Una vida sexual activa (según la definición de cada uno) puede tener beneficios para la salud física y emocional, pero la ausencia de actividad sexual no es inherentemente insalubre si es una elección personal o circunstancial que no causa malestar.</p>
-                <p><em>(Expandir sobre cómo abordar las diferencias de deseo en una pareja)</em></p>
-            </section>
-            
-            <section id="riesgos-sin-proteccion" class="content-section">
-                <h2>Riesgos del Sexo sin Protección y Prevención</h2>
-                <p>En Colombia, se reportan aproximadamente 130,000 nuevos casos de ITS anualmente (Ministerio de Salud, 2022). El uso correcto de preservativos reduce el riesgo de transmisión en un 98% (OMS, 2023).</p>
-                
-                <h3>Datos relevantes para jóvenes colombianos:</h3>
-                <ul>
-                    <li>El 40% de nuevos casos de VIH ocurren en personas entre 15-24 años (Profamilia, 2023)</li>
-                    <li>Solo el 58% de adolescentes usan preservativo en su primera relación sexual (ENS, 2021)</li>
-                    <li>El VPH afecta al 80% de personas sexualmente activas en algún momento de su vida</li>
-                </ul>
-                
-                <h3>Recomendaciones de la OMS:</h3>
-                <ol>
-                    <li>Usar preservativo en todas las relaciones sexuales</li>
-                    <li>Realizarse pruebas de ITS regularmente si se es sexualmente activo</li>
-                    <li>Vacunarse contra el VPH entre los 9-26 años</li>
-                    <li>Limitar el número de parejas sexuales</li>
-                </ol>
-                
-                <div class="highlight">
-                    <p><strong>Recursos en Colombia:</strong> Profamilia ofrece pruebas gratuitas de ITS para adolescentes. Línea de atención: 01 8000 110 900</p>
-                </div>
-                
-                <div class="reference">
-                    <p><strong>Fuentes:</strong> OMS (2023). Prevención de ITS. Ministerio de Salud y Protección Social de Colombia (2022). Boletín Epidemiológico. Profamilia (2023). Estadísticas de salud sexual.</p>
-                </div>
-            </section>
-
-            <section id="beneficios-vida-sexual" class="content-section">
-                <h2>Beneficios de una Vida Sexual Saludable</h2>
-                <p>Una vida sexual saludable, consensuada y satisfactoria puede aportar numerosos beneficios al bienestar físico y emocional de las personas.</p>
-                <h3>Beneficios Físicos:</h3>
-                <ul>
-                    <li><strong>Mejora del Sistema Inmunológico:</strong> Algunos estudios sugieren que la actividad sexual regular puede aumentar los niveles de ciertos anticuerpos.</li>
-                    <li><strong>Salud Cardiovascular:</strong> Puede contribuir a reducir la presión arterial y el riesgo de problemas cardíacos.</li>
-                    <li><strong>Alivio del Dolor:</strong> La liberación de endorfinas durante el orgasmo puede actuar como analgésico natural.</li>
-                    <li><strong>Mejora del Sueño:</strong> La relajación y liberación hormonal post-orgasmo pueden facilitar el descanso.</li>
-                    <li><strong>Suelo Pélvico Fuerte:</strong> En mujeres, la actividad sexual puede ayudar a fortalecer los músculos del suelo pélvico.</li>
-                    <li><strong>Menor Estrés:</strong> El contacto físico y la liberación de hormonas como la oxitocina pueden reducir los niveles de estrés.</li>
-                </ul>
-                <h3>Beneficios Emocionales y Relacionales:</h3>
-                <ul>
-                    <li><strong>Mayor Intimidad y Conexión:</strong> Fortalece el vínculo emocional con la pareja.</li>
-                    <li><strong>Mejora del Estado de Ánimo:</strong> Liberación de endorfinas y otras sustancias que generan sensación de bienestar.</li>
-                    <li><strong>Aumento de la Autoestima y Confianza:</strong> Sentirse deseado/a y disfrutar del propio cuerpo.</li>
-                    <li><strong>Reducción de la Ansiedad:</strong> El placer y la relajación pueden tener efectos ansiolíticos.</li>
-                </ul>
-                <p>Es importante recordar que "vida sexual saludable" no se define por la frecuencia, sino por la calidad, el consentimiento, el respeto mutuo, la seguridad y la satisfacción personal. Puede incluir o no la penetración, y puede vivirse en pareja o individualmente (masturbación).</p>
-                <p><em>(Expandir con referencias a estudios si es posible, y enfatizar que estos son beneficios potenciales, no garantías)</em></p>
-            </section>
-            
-        </main>
+</ul>
+</div>
+<div class="reference">
+<p><strong>Fuentes:</strong> Medicina Legal Colombia (2022). Forensis. UNICEF Colombia (2023). Protección contra la violencia. Ministerio de Salud (2023). Rutas de atención. Profamilia (2023). Asesoría Virtual Gratuita. MinTIC (2023). Aplicaciones recomendadas.</p>
+</div>
+</section>
+<section class="content-section" id="violencia-genero">
+<h2>Violencia de Género en Colombia: Datos y Recursos</h2>
+<p>En 2022, se reportaron 58,290 casos de violencia basada en género en Colombia, siendo el 73% de las víctimas mujeres entre los 14 y 24 años, según el informe Forensis del Instituto Nacional de Medicina Legal <sup><a href="#ref-violencia-genero">[1]</a></sup>.</p>
+<h3>Formas de violencia más comunes en jóvenes:</h3>
+<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 30px;">
+<ul style="flex: 1; min-width: 250px;">
+<li>Violencia psicológica (45%): Control, humillación</li>
+<li>Violencia física (30%): Golpes, empujones</li>
+<li>Violencia sexual (20%): Acoso, violación en citas</li>
+<li>Violencia digital (5%): Sextorsión, ciberacoso</li>
+</ul>
+<div style="flex: 1; min-width: 250px;">
+<div class="chart-container">
+<canvas id="graficoViolencia"></canvas>
+</div>
+</div>
+</div>
+<h3>¿Cómo identificar relaciones tóxicas?</h3>
+<ul>
+<li>Control sobre tu ropa, amistades o redes sociales</li>
+<li>Críticas constantes a tu apariencia o capacidades</li>
+<li>Presión para actividades sexuales no deseadas</li>
+<li>Aislamiento de familiares y amigos</li>
+</ul>
+<div class="highlight">
+<p><strong>Rutas de atención:</strong> Línea 155 (mujeres víctimas de violencia), Línea 122 (Fiscalía), y App <em>"No Estás Sola"</em> del MinTIC con geolocalización de CAIVAS y comisarías.</p>
+</div>
+<section id="materiales-adicionales-violencia">
+<h3>Materiales para profundizar</h3>
+<ul>
+<li><a href="https://colombia.unfpa.org/sites/default/files/pub-pdf/CARTILLA%20UNA%20VIDA%20LIBRE%20DE%20VIOLENCIA-ES%20TU%20DERECHO_2.pdf" target="_blank">Cartilla “Una vida libre de violencia: es tu derecho” – UNFPA Colombia (PDF)</a></li>
+<li><a href="https://savethechildren.org.co/material-pedagogico-para-proteger-a-la-ninez-de-la-violencia-sexual-y-basada-en-genero/" target="_blank">Cartilla “Mi cuerpo, mi responsabilidad” – Save the Children Colombia</a></li>
+<li><a href="https://rutapacifica.org.co/wp/wp-content/uploads/2023/02/Cartilla-ICCO-jovenes.pdf" target="_blank">Cartilla para jóvenes – Ruta Pacífica de las Mujeres (PDF)</a></li>
+</ul>
+</section>
+<div class="reference">
+<p id="ref-violencia-genero"><strong>Fuentes:</strong></p>
+<ul>
+<li>Instituto Nacional de Medicina Legal y Ciencias Forenses. (2023). <i>Forensis 2022: Datos para la vida</i>. Recuperado de: https://www.medicinalegal.gov.co</li>
+<li>Fiscalía General de la Nación. (2023). <i>Ruta de atención a víctimas de violencia basada en género</i>. https://www.fiscalia.gov.co</li>
+</ul>
+</div>
+</section>
+<section class="content-section" id="edad-consentimiento">
+<h2>Edad de Consentimiento Sexual en Colombia: Marco Legal</h2>
+<p>La edad de consentimiento sexual en Colombia es 14 años, según el Artículo 208 del Código Penal. Relaciones sexuales con menores de 14 años constituyen delito de abuso sexual, incluso con aparente consentimiento.</p>
+<h3>Aspectos legales clave:</h3>
+<ul>
+<li><strong>Delito grave:</strong> Penas de 13 a 30 años de prisión.</li>
+<li><strong>Agravantes:</strong> Si el agresor es familiar, docente o figura de autoridad.</li>
+<li><strong>Grooming:</strong> Comunicación con fines sexuales con menores es delito (Ley 1098 de 2006).</li>
+<li><strong>Sexting entre menores:</strong> Intercambio de imágenes íntimas entre adolescentes puede ser delito si un participante es menor de 14 años.</li>
+</ul>
+<h3>Datos preocupantes:</h3>
+<ul>
+<li>El 35% de víctimas de abuso sexual son menores de 14 años (Fiscalía General de la Nación, 2023).</li>
+<li>El 70% de agresores son conocidos de la víctima.</li>
+</ul>
+<div class="reference">
+<p><strong>Fuentes:</strong></p>
+<ul>
+<li>Código Penal Colombiano. Artículo 208.</li>
+<li>Ley 1098 de 2006 – Código de Infancia y Adolescencia.</li>
+<li>Fiscalía General de la Nación. (2023). Estadísticas delitos sexuales. <a href="https://www.fiscalia.gov.co" target="_blank">https://www.fiscalia.gov.co</a></li>
+</ul>
+</div>
+</section>
+<section class="content-section" id="derechos-sexuales">
+<h2>Derechos Sexuales y Reproductivos en Colombia</h2>
+<p>Según la Organización Mundial de la Salud (OMS), los derechos sexuales incluyen el derecho a la información científica, a la educación sexual y al acceso a servicios de salud sexual y reproductiva de calidad. Estos derechos buscan garantizar el bienestar físico, emocional, mental y social en relación con la sexualidad (OMS, 2015).</p>
+<p>En Colombia, estos derechos están protegidos por diversas decisiones de la Corte Constitucional, entre ellas la Sentencia C-055 de 2022, que amplió el acceso a la Interrupción Voluntaria del Embarazo hasta la semana 24 de gestación.</p>
+<h3>Derechos fundamentales:</h3>
+<ul>
+<li>Acceso gratuito a métodos anticonceptivos, incluso para menores de edad, bajo principios de confidencialidad y autonomía</li>
+<li>Confidencialidad en servicios de salud sexual (Ley Estatutaria 1751 de 2015)</li>
+<li>Educación sexual integral como parte del derecho a la educación y a la salud</li>
+<li>Interrupción Voluntaria del Embarazo (IVE) hasta la semana 24, y sin límite en tres causales (Sentencia C-055 de 2022)</li>
+</ul>
+<h3>Datos sobre educación sexual en Colombia:</h3>
+<ul>
+<li>El 65% de adolescentes recibe información sexual principalmente de internet (Encuesta Nacional de Salud Escolar, ENSIN 2021)</li>
+<li>Solo el 40% de las instituciones educativas implementa de forma completa la Educación Integral en Sexualidad (MEN, 2022)</li>
+<li>Profamilia atiende más de 500.000 consultas anuales de adolescentes relacionadas con salud sexual y reproductiva (Profamilia, 2023)</li>
+</ul>
+<div class="reference">
+<p><strong>Fuentes:</strong> OMS (2015). Salud sexual y derechos sexuales. Corte Constitucional de Colombia (Sentencia C-055/22). Ministerio de Educación Nacional (2022). Profamilia (2023). Informe Anual. ENSIN (2021).</p>
+</div>
+</section>
+<section class="content-section" id="prevenir-violencia">
+<h2>Prevención de Violencia Sexual para Estudiantes</h2>
+<p>En Colombia, el 85% de casos de violencia sexual en adolescentes ocurre en entornos cercanos: hogar, escuela o comunidad (ICBF, 2023). La prevención empieza con educación.</p>
+<h3>Estrategias prácticas para estudiantes:</h3>
+<ul>
+<li><strong>Reconocer señales de alerta:</strong> Comportamientos inapropiados de adultos o compañeros, tocamientos no consentidos.</li>
+<li><strong>Establecer límites claros:</strong> Decir "NO" de manera firme ante contactos físicos no deseados.</li>
+<li><strong>Redes de apoyo:</strong> Identificar al menos tres adultos de confianza para pedir ayuda.</li>
+<li><strong>Seguridad digital:</strong> No compartir imágenes íntimas y bloquear contactos sospechosos.</li>
+<li><strong>Educación entre pares:</strong> Formar grupos escolares que promuevan la prevención y el respeto.</li>
+<li><strong>Practicar comunicación asertiva:</strong> Expresar con confianza sus sentimientos y experiencias.</li>
+<li><strong>Conocer sus derechos:</strong> Informarse sobre la ley y mecanismos de protección para menores.</li>
+<li><strong>Crear códigos de seguridad:</strong> Acuerdos con familiares o amigos para pedir ayuda en situaciones de riesgo (por ejemplo, mensajes clave o señales).</li>
+<li><strong>Participar en talleres y charlas:</strong> Aprovechar actividades escolares sobre prevención para fortalecer conocimientos y habilidades.</li>
+<li><strong>Fomentar el respeto mutuo:</strong> Promover relaciones basadas en el consentimiento y la igualdad.</li>
+<li><strong>Registrar incidentes:</strong> Anotar o documentar cualquier situación que les haga sentir incómodos para reportarla oportunamente.</li>
+</ul>
+<h3>Recursos educativos recomendados:</h3>
+<ul>
+<li><a href="https://www.icbf.gov.co/sites/default/files/procesos/pu21.mo24.pp_cartillas_encuentros_fortalecimiento_comunitario_-_violencias_sexuales_v1.pdf" target="_blank">Cartillas sobre prevención de las violencias sexuales - ICBF</a></li>
+<li><a href="https://generoymetodologias.org/recursos-metodologicos/publicaciones/respetame-cartilla-para-la-prevencion-de-violencia-sexual-en-ninas-ninos-y-adolescentes/" target="_blank">¡Respétame! Cartilla para la prevención de violencia sexual en niñas, niños y adolescentes</a></li>
+</ul>
+<div class="reference">
+<p><strong>Fuentes:</strong> ICBF (2023). Prevención violencia sexual infantil. Fundación PAS (2023). Prevención del Abuso Sexual Infantil. Género y Metodologías (2023). ¡Respétame! Cartilla para la prevención de violencia sexual en niñas, niños y adolescentes.</p>
+</div>
+</section>
+<!-- Historia y Cultura -->
+<section id="tabues-historia" class="content-section">
+    <h2>Historia y Evolución de los Tabúes Sexuales</h2>
+    <p>Los tabúes sexuales son prohibiciones sociales que regulan la conducta sexual con base en valores culturales, religiosos o políticos. Estas normas han variado a lo largo del tiempo y las culturas.</p>
+  
+    <h3>Orígenes y Funciones:</h3>
+    <ul>
+      <li><strong>Control Social:</strong> Las élites y religiones usaron los tabúes para regular el comportamiento sexual (Foucault, 1976).</li>
+      <li><strong>Salud Pública:</strong> Algunos tabúes surgieron por temor a enfermedades antes de conocer las ITS científicamente.</li>
+      <li><strong>Dominio de Género:</strong> En muchas culturas, los tabúes fueron usados para controlar la sexualidad femenina (Rubin, 1984).</li>
+    </ul>
+  
+    <h3>Evolución:</h3>
+    <p>Por ejemplo, la homosexualidad pasó de ser penalizada a estar protegida legalmente en muchos países. En Europa medieval, la masturbación era considerada pecado grave; hoy, la OMS la reconoce como saludable. El tabú sobre la menstruación sigue presente en varias culturas, afectando la salud y participación social de las mujeres.</p>
+  
+    <div class="reference">
+      <p><strong>Material de apoyo:</strong></p>
+      <ul>
+        <li><a href="https://colombia.unfpa.org/es/publications/cartilla-autocuidado-menstruacion" target="_blank">📘 UNFPA Colombia – Cartilla de Autocuidado y Menstruación (2020)</a></li>
+        <li><a href="https://www.plannedparenthood.org/learn/teens" target="_blank">📘 Planned Parenthood – Recursos para Adolescentes (en español e inglés)</a></li>
+        <li><a href="https://profamilia.org.co/wp-content/uploads/2021/02/Cartilla-DESCUBRIENDO-LA-SEXUALIDAD-EN-FAMILIA-2021.pdf" target="_blank">📘 Profamilia – Descubriendo la Sexualidad en Familia (2021)</a></li>
+      </ul>
     </div>
-
-    <footer>
-        <p>&copy; <span id="currentYear"></span> Guía Interactiva de Educación Sexual. Información con base científica y enfoque inclusivo.</p>
-        <p>Este material es educativo y no reemplaza la consulta con profesionales de la salud o asesores legales.</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('nav.sidebar ul li a');
-            const contentSections = document.querySelectorAll('.content-section');
-            const mainContentArea = document.querySelector('main.content');
-            // const headerElement = document.querySelector('header'); // No se usa directamente en esta versión del scroll
-
-            function showContent(targetId) {
-                // console.log(`[showContent] Intentando mostrar: ${targetId}`);
-
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                });
-
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                    // console.log(`[showContent] Sección activada: ${targetSection.id}`);
-
-                    const isMobileLayout = window.innerWidth <= 992;
-
-                    if (!isMobileLayout && mainContentArea.scrollHeight > mainContentArea.clientHeight) {
-                        mainContentArea.scrollTop = 0;
-                    } else if (isMobileLayout) {
-                        // En móvil, el 'main.content' está en el flujo normal del documento
-                        // Hacemos scroll para que la parte superior de 'main.content' sea visible.
-                        const mainContentTop = mainContentArea.getBoundingClientRect().top + window.pageYOffset;
-                        // Opcional: restar altura de un header si fuera sticky EN MÓVIL, o añadir un pequeño offset
-                        // const headerMobileHeight = 0; // Si el header no es sticky en móvil
-                        const offset = 10; // Pequeño margen superior
-                        
-                        window.scrollTo({ 
-                            top: mainContentTop - offset > 0 ? mainContentTop - offset : 0,
-                            behavior: 'auto' 
-                        });
-                    }
-                } else {
-                    // console.error(`[showContent] ERROR: Sección NO encontrada para ID: ${targetId}`);
-                }
-            }
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const targetId = this.getAttribute('data-target');
-                    // console.log(`[Link Click] Click en: ${targetId}`);
-
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    showContent(targetId);
-                });
-            });
-
-            function initializePage() {
-                navLinks.forEach(navLink => navLink.classList.remove('active'));
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                });
-
-                const inicioSection = document.getElementById('inicio');
-                const inicioLink = document.querySelector('a[data-target="inicio"]');
-
-                if (inicioSection) {
-                    inicioSection.classList.add('active');
-                    if (inicioLink) {
-                        inicioLink.classList.add('active');
-                    }
-                    // console.log('[Initialize] Sección "inicio" y link (si existe) activados.');
-                } else {
-                    // console.warn('[Initialize] Sección "inicio" no encontrada. Intentando mostrar primera sección disponible.');
-                    const firstContentLink = document.querySelector('nav.sidebar ul li:not(.category-title) a');
-                    if (firstContentLink) {
-                        const firstTargetId = firstContentLink.getAttribute('data-target');
-                        const firstSection = document.getElementById(firstTargetId);
-                        if (firstSection) {
-                            firstSection.classList.add('active');
-                            firstContentLink.classList.add('active');
-                            // console.log(`[Initialize] Activada primera sección/link: ${firstTargetId}`);
-                        }
-                    } else {
-                        // console.error('[Initialize] No hay secciones de contenido o links para mostrar por defecto.');
-                    }
-                }
-            }
-
-            initializePage();
-
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> Foucault, M. (1976). <em>Historia de la sexualidad</em>. Rubin, G. (1984). <em>Thinking Sex</em>. OMS (2022). <em>Sexual Health Overview</em>. UNFPA Colombia (2020). Planned Parenthood (2023). Profamilia (2021).</p>
+    </div>
+  </section>
+  <section class="content-section" id="sexualidad-culturas">
+    <h2>Sexualidad en Diferentes Culturas y Regiones</h2>
+    <p>La forma en que se entiende, expresa y regula la sexualidad varía enormemente alrededor del mundo. No existe una única "forma natural" de vivir la sexualidad, sino que cada cultura moldea sus propias normas, creencias y tabúes.</p>
+  
+    <h3>Ejemplos de Diversidad Cultural Global:</h3>
+    <ul>
+      <li><strong>Roles de Género:</strong> En Samoa, existen los <em>fa'afafine</em>, reconocidos como un tercer género. En India, los <em>hijras</em> son parte de un sistema ancestral de identidad no binaria.</li>
+      <li><strong>Matrimonio y Relaciones:</strong> En regiones del norte de África y Medio Oriente, el matrimonio infantil aún se practica, mientras que en países como Suecia o Islandia predomina la unión libre consensuada.</li>
+      <li><strong>Actitudes hacia la Homosexualidad:</strong> Mientras que en Canadá o Sudáfrica existe matrimonio igualitario, en países como Uganda o Irán la homosexualidad es perseguida legalmente.</li>
+      <li><strong>Ritos de Iniciación:</strong> En comunidades indígenas amazónicas se realizan ceremonias que integran aspectos espirituales, sexuales y de maduración.</li>
+    </ul>
+  
+    <h3>Diversidad Sexual y Cultural en Colombia:</h3>
+    <p>Colombia es un país con gran pluralidad cultural. En comunidades afrocolombianas del Pacífico, el respeto por la autoridad y los roles tradicionales aún moldea los tabúes en torno al placer femenino. En zonas rurales de la región Caribe, el embarazo adolescente sigue siendo normalizado, mientras que en Bogotá y Medellín los jóvenes acceden con mayor libertad a información sobre diversidad sexual y métodos anticonceptivos. En los pueblos indígenas, la sexualidad está integrada a lo comunitario, aunque persisten tensiones entre tradiciones y derechos.</p>
+  
+    <p>Según el DANE y Profamilia, las regiones donde se reportan mayores obstáculos para hablar de sexualidad en casa son la Amazonía y la Orinoquía, mientras que en zonas urbanas los adolescentes acceden más fácilmente a servicios de orientación sexual y salud reproductiva.</p>
+  
+    <h3>Relativismo Cultural y Derechos Humanos:</h3>
+    <p>El relativismo cultural nos invita a comprender las prácticas sexuales desde el contexto sociocultural en que se desarrollan, evitando juicios etnocéntricos. No obstante, este respeto tiene un límite ético: ninguna práctica cultural debe justificar la vulneración de los derechos humanos, como sucede con la mutilación genital femenina, el matrimonio forzado o la violencia por orientación sexual.</p>
+  
+    <h3>¿Cómo superar los obstáculos socioculturales?</h3>
+    <ul>
+      <li><strong>Educación integral:</strong> La educación sexual con enfoque de derechos y género permite desmontar mitos, reconocer el placer, y promover relaciones saludables.</li>
+      <li><strong>Diálogo intergeneracional:</strong> Escuchar y hablar sin juzgar entre jóvenes y adultos fortalece la confianza para abordar temas sensibles.</li>
+      <li><strong>Acceso a servicios:</strong> Centros de salud, orientadores escolares y líneas de ayuda deben ser espacios seguros para resolver dudas.</li>
+      <li><strong>Reconocimiento de la diversidad:</strong> Valorar la diferencia sin imponerla promueve una convivencia respetuosa y libre de discriminación.</li>
+    </ul>
+  
+    <div class="reference">
+      <p><strong>Material de apoyo:</strong></p>
+      <ul>
+        <li><a href="https://colombia.unfpa.org/es/publications/cartilla-autocuidado-menstruacion" target="_blank">📘 UNFPA Colombia – Cartilla de Autocuidado y Menstruación (2020)</a></li>
+        <li><a href="https://www.plannedparenthood.org/learn/teens/lgbtq" target="_blank">📘 Planned Parenthood – Información y Recursos para Adolescentes LGBTQ+</a></li>
+        <li><a href="https://profamilia.org.co/wp-content/uploads/2021/02/Cartilla-DESCUBRIENDO-LA-SEXUALIDAD-EN-FAMILIA-2021.pdf" target="_blank">📘 Profamilia – Descubriendo la Sexualidad en Familia (2021)</a></li>
+      </ul>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> Giddens, A. (1992). <em>La transformación de la intimidad</em>. UNFPA Colombia (2020). DANE – Encuesta Nacional de Demografía y Salud (ENDS, 2020). Amnistía Internacional (2022). Planned Parenthood (2023). Profamilia (2021).</p>
+    </div>
+  </section>
+  <section class="content-section" id="fetiches-fantasias">
+    <h2>Construcción Cultural de los Fetiches y Fantasías</h2>
+    <p>Las fantasías sexuales son pensamientos, imágenes mentales o escenarios que provocan excitación sexual. Son una forma natural de explorar el deseo. Los fetiches, por otro lado, se refieren a una atracción sexual intensa hacia objetos, partes del cuerpo no genitales o situaciones específicas.</p>
+  
+    <h3>Construcción Cultural:</h3>
+    <p>Si bien el deseo sexual tiene una base biológica, lo que consideramos erótico está moldeado por la cultura, el entorno, y nuestras experiencias personales.</p>
+    <ul>
+      <li><strong>Medios de Comunicación:</strong> La publicidad, el cine y la pornografía influencian lo que una sociedad considera excitante o atractivo.</li>
+      <li><strong>Normas Sociales:</strong> Cada cultura define qué prácticas son aceptadas y cuáles son consideradas tabú o “inusuales”.</li>
+      <li><strong>Experiencias Tempranas:</strong> Algunos fetiches pueden desarrollarse por asociaciones psicológicas formadas en la infancia o adolescencia, incluso de forma inconsciente.</li>
+    </ul>
+  
+    <h3>Ejemplos de fetiches comunes:</h3>
+    <ul>
+      <li>Fetichismo por pies, manos o cabello.</li>
+      <li>Uso de ropa interior, cuero, encajes, uniformes o zapatos específicos.</li>
+      <li>Situaciones de dominación/sumisión (como el BDSM).</li>
+      <li>Fijación por texturas o materiales (látex, seda, etc.).</li>
+    </ul>
+  
+    <h3>¿Cuándo se considera un problema?</h3>
+    <p>Tener fantasías o fetiches no es algo anormal. De hecho, la mayoría de las personas tiene fantasías sexuales. Se considera una parafilia cuando hay un patrón repetitivo de excitación atípico, pero esto no es necesariamente un problema de salud mental.</p>
+    <p>Un fetiche o parafilia se convierte en un <strong>trastorno parafílico</strong> solo si causa malestar clínico significativo a la persona o si implica daño, riesgo o falta de consentimiento. La clave siempre es el <strong>consentimiento informado</strong> y la ausencia de coerción.</p>
+  
+    <div class="reference">
+        <p><strong>Material de apoyo:</strong></p>
+        <ul>
+          <li><a href="https://www.plannedparenthood.org/uploads/filer_public/13/95/1395d032-c069-42e2-8243-57871d803a21/nohaylugarcomoelhogar.pdf" target="_blank">📘 Planned Parenthood – No hay lugar como el hogar: Guía para hablar de sexualidad con adolescentes</a></li>
+          <li><a href="https://colombia.unfpa.org/sites/default/files/pub-pdf/INFOGRAFIA_DSR_WEB.pdf" target="_blank">📘 UNFPA Colombia – Infografía sobre Derechos Sexuales y Reproductivos</a></li>
+          <li><a href="https://www.plannedparenthood.org/es/temas-de-salud/glosario" target="_blank">📘 Planned Parenthood – Glosario de sexualidad y términos sexuales</a></li>
+        </ul>
+      </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> American Psychiatric Association (2013). <em>DSM-5</em>. Joyal, C. C. & Carpentier, J. (2017). <em>The Prevalence of Paraphilic Interests</em>. Planned Parenthood (2023). APA (2022).</p>
+    </div>
+  </section>
+  <section class="content-section" id="influencia-religion">
+    <h2>Influencia de la Religión y la Familia en la Percepción de la Sexualidad</h2>
+    <p>La religión y la familia son dos de las influencias más poderosas en cómo las personas entienden y viven su sexualidad. Ambas pueden ser fuentes de orientación, contención y valores, pero también de conflictos internos cuando sus normas entran en tensión con los derechos individuales o la diversidad.</p>
+  
+    <h3>Influencia de la Religión:</h3>
+    <p>Muchas religiones han regulado históricamente la sexualidad mediante códigos morales. Entre sus enseñanzas más comunes están:</p>
+    <ul>
+      <li><strong>Propósito de la Sexualidad:</strong> En varias doctrinas, se asocia principalmente con la procreación dentro del matrimonio.</li>
+      <li><strong>Restricciones:</strong> Algunas religiones prohíben el sexo prematrimonial, la masturbación, la homosexualidad, el aborto o los métodos anticonceptivos.</li>
+      <li><strong>Roles de Género:</strong> Se definen comportamientos “apropiados” para hombres y mujeres en el ámbito familiar y sexual.</li>
+      <li><strong>Valores:</strong> Se promueve la castidad, la fidelidad, la modestia y el autocontrol.</li>
+    </ul>
+  
+    <p>Para muchas personas, la fe es una fuente de sentido y ética. Sin embargo, también puede generar sentimientos de culpa, miedo o vergüenza cuando se viven experiencias que contradicen los mandatos religiosos. En Colombia, algunas comunidades religiosas han comenzado a abrir espacios de diálogo sobre diversidad sexual, mientras que otras mantienen posturas conservadoras.</p>
+  
+    <h3>Influencia de la Familia:</h3>
+    <p>La familia es el primer espacio donde se transmiten modelos de afecto, límites y normas. Lo que se dice —o lo que se calla— sobre sexualidad en casa tiene un gran impacto.</p>
+    <ul>
+      <li><strong>Modelos a Seguir:</strong> Padres que muestran respeto mutuo y afecto enseñan relaciones sanas sin necesidad de discursos explícitos.</li>
+      <li><strong>Comunicación:</strong> Familias que hablan abiertamente sobre el cuerpo, el consentimiento y el amor generan confianza y previenen riesgos.</li>
+      <li><strong>Diversidad de Enfoques:</strong> Mientras algunas familias apoyan la educación sexual integral, otras aún la ven como un tema tabú o innecesario.</li>
+    </ul>
+  
+    <h3>Puentes entre fe, familia y sexualidad saludable:</h3>
+    <p>No se trata de eliminar la fe o los valores familiares, sino de buscar un equilibrio basado en el respeto, el diálogo y la información. Varias organizaciones religiosas progresistas ya promueven la educación sexual como herramienta de cuidado, ética y justicia. Escuchar sin juzgar, preguntar sin miedo y actualizar las creencias a la luz del bienestar humano puede fortalecer tanto la espiritualidad como la salud sexual.</p>
+  
+    <div class="reference">
+        <p><strong>Material de apoyo:</strong></p>
+        <ul>
+          <li><a href="https://www.plannedparenthood.org/uploads/filer_public/13/95/1395d032-c069-42e2-8243-57871d803a21/nohaylugarcomoelhogar.pdf" target="_blank">📘 Planned Parenthood – No hay lugar como el hogar: Guía para familias sobre sexualidad</a></li>
+          <li><a href="https://colombia.unfpa.org/sites/default/files/pub-pdf/cartilla_descubriendo_la_sexualidad_en_familia_.pdf" target="_blank">📘 UNFPA Colombia – Cartilla: Descubriendo la sexualidad en familia</a></li>
+          <li><a href="https://feyvida.org/en/family-ministry/educacion-integral-sobre-la-sexualidad/" target="_blank">📘 Instituto Fe y Vida – Educación Integral sobre la Sexualidad (perspectiva cristiana y culturalmente relevante)</a></li>
+          <li><a href="https://ondemand.ewtn.com/Home/Play/es/VPL21009" target="_blank">📘 EWTN – ¿Qué dice la Iglesia sobre la educación sexual? (video en español)</a></li>
+          <li><a href="https://csetoolkit.unesco.org/es/toolkit/el-caso/que-es-la-educacion-integral-en-sexualidad" target="_blank">📘 UNESCO – ¿Qué es la educación integral en sexualidad?</a></li>
+        </ul>
+      </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> Browning, D. (2003). <em>Sexuality and the Sacred</em>. UNFPA Colombia (2021). Planned Parenthood (2021). CEDES Colombia (2020). ONUSIDA (2019).</p>
+    </div>
+  </section>
+  <section class="content-section" id="cultura-creencias">
+    <h2>Cultura, Tabúes y Creencias sobre la Sexualidad</h2>
+    <p>La cultura influye profundamente en cómo pensamos y sentimos sobre la sexualidad. Lo que una sociedad considera "normal" o "aceptable" se aprende desde pequeños y puede variar según el lugar y la época.</p>
+  
+    <h3>Aspectos importantes de la cultura y la sexualidad:</h3>
+    <ul>
+      <li><strong>Normas y reglas:</strong> Cada cultura tiene normas, a veces explícitas y otras implícitas, sobre con quién, cuándo y cómo se puede expresar la sexualidad.</li>
+      <li><strong>Significado del cuerpo y actos:</strong> La percepción del cuerpo y ciertas conductas sexuales depende del contexto cultural. Por ejemplo, en algunas comunidades del Caribe colombiano, se cree que las mujeres tienen "siete telitas" que se rompen al perder la virginidad, lo cual es un mito sin base científica.</li>
+      <li><strong>El lenguaje:</strong> Las palabras que usamos para hablar de sexo reflejan las actitudes culturales. En Colombia, es común usar eufemismos o evitar el tema, lo que puede generar desinformación.</li>
+      <li><strong>Tabúes:</strong> Son prohibiciones culturales fuertes sobre temas como el incesto o la menstruación. Estos varían entre culturas y suelen estar influenciados por tradiciones religiosas o sociales.</li>
+      <li><strong>Mitos y falsas creencias:</strong> Existen ideas erróneas sobre la sexualidad que se transmiten socialmente, como pensar que hablar de sexo con adolescentes los incita a tener relaciones sexuales, lo cual ha sido desmentido por estudios educativos.</li>
+    </ul>
+  
+    <p>Es esencial desarrollar un pensamiento crítico sobre nuestras propias creencias y las de otros, reconociendo que muchas son construcciones sociales y no verdades absolutas. Así, podemos cuestionar ideas que limitan nuestra libertad sexual y promover relaciones saludables y respetuosas.</p>
+  
+    <h3>¿Cómo influyen los medios y la globalización?</h3>
+    <p>Actualmente, gracias a internet y las redes sociales, los jóvenes tienen acceso a diversas formas de entender y vivir la sexualidad. Esto puede ampliar perspectivas, pero también puede propagar información errónea si no se verifica adecuadamente.</p>
+    <ul>
+      <li>Las redes sociales muestran distintas formas de amar y de expresar la sexualidad, pero es importante aprender a identificar información confiable.</li>
+      <li>Películas, series y medios digitales influyen en cómo vemos el cuerpo y el deseo, a veces reforzando estereotipos, pero también promoviendo la aceptación de la diversidad.</li>
+      <li>El contacto con otras culturas, por ejemplo, a través de migraciones o medios digitales, puede hacer que nuestras creencias cambien y nos permitan entender mejor otras formas de vivir la sexualidad.</li>
+    </ul>
+  
+    <p>Por ello, es fundamental buscar información clara, confiable y respetuosa para tomar decisiones responsables y cuidar nuestra salud sexual y emocional.</p>
+  
+    <div class="reference">
+      <p><strong>Material de apoyo:</strong></p>
+      <ul>
+        <li><a href="https://colombiavisible.com/educacion-sexual-poderosas-colombia/" target="_blank" rel="noopener">📘 Colombia Visible – Cinco mitos alrededor de la sexualidad que se están combatiendo desde la educación</a></li>
+        <li><a href="https://durexandino.com/articulos/co/sobre-el-sexo/mitos-sexuales-en-colombia/" target="_blank" rel="noopener">📘 Durex Andino – Mitos sexuales en Colombia</a></li>
+        <li><a href="https://www.researchgate.net/publication/359931491_Tabues_que_Imperan_en_los_Jovenes_al_Inicio_de_su_Actividad_Sexual" target="_blank" rel="noopener">📘 ResearchGate – Tabúes que imperan en los jóvenes al inicio de su actividad sexual</a></li>
+      </ul>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Referencias:</strong>  
+        Foucault, M. (1976). <em>La historia de la sexualidad</em>. Siglo XXI. |  
+        Bronfman, M. (2010). <em>Salud sexual y reproductiva: un enfoque cultural</em>. UNAM. |  
+        Organización Mundial de la Salud (2015). <em>Salud sexual</em>. Recuperado de <a href="https://www.who.int/health-topics/sexual-health" target="_blank" rel="noopener">https://www.who.int/health-topics/sexual-health</a> |  
+        UNFPA (2018). <em>Educación Integral en Sexualidad</em>.  
+      </p>
+    </div>
+  </section>
+  
+<!-- Prácticas Sexuales y Cuidado -->
+<section class="content-section" id="preservativos">
+    <h2>Uso Correcto de Preservativos (Masculinos y Femeninos)</h2>
+    <p>Los preservativos (condones) son el único método que ofrece doble protección: previenen embarazos no planeados y reducen significativamente el riesgo de transmisión de Infecciones de Transmisión Sexual (ITS), incluyendo el VIH.</p>
+  
+    <h3>Preservativo Masculino (Externo):</h3>
+    <ol>
+      <li><strong>Verificar Fecha de Caducidad y Empaque:</strong> Asegúrate de que no esté vencido y que el empaque esté intacto (sin roturas, con aire).</li>
+      <li><strong>Abrir con Cuidado:</strong> Usa los dedos, no los dientes ni objetos afilados, para evitar rasgarlo.</li>
+      <li><strong>Colocar ANTES de Cualquier Contacto Genital:</strong> Sobre el pene erecto. Si no está circuncidado, retrae el prepucio.</li>
+      <li><strong>Apretar la Punta:</strong> Para sacar el aire y dejar espacio para el semen.</li>
+      <li><strong>Desenrollar Completamente:</strong> Hasta la base del pene.</li>
+      <li><strong>Usar Durante TODA la Relación Sexual.</strong></li>
+      <li><strong>Retirar Después de Eyacular y ANTES de Perder la Erección:</strong> Sujeta el condón por la base al retirar el pene para evitar que se derrame el semen o que el condón quede dentro.</li>
+      <li><strong>Desechar Correctamente:</strong> Envuélvelo en papel y tíralo a la basura, NUNCA al inodoro.</li>
+      <li><strong>Usar uno Nuevo en Cada Acto Sexual.</strong></li>
+    </ol>
+  
+    <h3>Preservativo Femenino (Interno):</h3>
+    <p>Es una funda de poliuretano o nitrilo con dos anillos flexibles en cada extremo. Se inserta en la vagina antes del coito.</p>
+    <ol>
+      <li><strong>Verificar Fecha y Empaque.</strong></li>
+      <li><strong>Introducir:</strong> El anillo interno más pequeño se aprieta y se introduce profundamente en la vagina, cerca del cérvix. El anillo externo, más grande, queda fuera cubriendo los genitales externos.</li>
+      <li><strong>Asegurar que no Esté Torcido</strong> y que el pene entre DENTRO del preservativo, no entre el preservativo y la pared vaginal.</li>
+      <li><strong>Retirar con Cuidado:</strong> Gira el anillo externo y tira suavemente para sacarlo.</li>
+      <li><strong>Desechar y Usar uno Nuevo en Cada Acto.</strong></li>
+    </ol>
+  
+    <p><strong>Importante:</strong> Nunca uses un condón masculino y uno femenino al mismo tiempo, la fricción puede romperlos. Usa lubricantes a base de agua o silicona, no a base de aceite (como vaselina o aceites corporales) con condones de látex, ya que pueden dañarlos.</p>
+  
+    <div class="reference">
+      <p><strong>Material de apoyo:</strong></p>
+      <ul>
+        <li>
+          <a href="https://www.cdc.gov/condom-use/es/resources/como-usar-un-condon-1.html" target="_blank">
+            📘 CDC – Guía ilustrada: Cómo usar un condón masculino
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> Centers for Disease Control and Prevention (CDC). (2022). <em>Cómo usar un condón masculino</em>. Recuperado de https://www.cdc.gov/condom-use/es/resources/como-usar-un-condon-1.html</p>
+    </div>
+  </section>
+  <section class="content-section" id="higiene-post">
+    <h2>Higiene Después de las Relaciones Sexuales</h2>
+    <p>Una higiene adecuada después del sexo ayuda a prevenir infecciones urinarias y molestias genitales, fortaleciendo el cuidado íntimo y el respeto propio.</p>
+  
+    <h3>Pasos esenciales de autocuidado:</h3>
+    <ul>
+      <li><strong>Orinar después del sexo:</strong> Ayuda a expulsar bacterias y reduce el riesgo de infecciones urinarias (CDC, 2023).</li>
+      <li><strong>Limpieza externa:</strong> Lava la zona genital solo con agua tibia. Evita jabones perfumados y duchas vaginales (Mayo Clinic, 2023).</li>
+      <li><strong>Secado delicado:</strong> Usa una toalla limpia, dando pequeños toques. Evita frotar.</li>
+      <li><strong>Ropa interior adecuada:</strong> Usa prendas de algodón que permitan la ventilación.</li>
+      <li><strong>Hidratación:</strong> Beber agua favorece la salud urinaria.</li>
+    </ul>
+  
+    <div class="highlight">
+      <p><strong>Dato:</strong> La limpieza genital con agua tibia y sin productos agresivos disminuye en un 60% las molestias posteriores al sexo (NHS UK, 2023).</p>
+    </div>
+  
+    <h3>Cuidados según el cuerpo</h3>
+    <ul>
+      <li><strong>Personas con pene:</strong> Lavar el pene con agua tibia. Si no está circuncidado, retraer suavemente el prepucio para limpiar debajo. Evitar jabones perfumados.</li>
+      <li><strong>Personas con vagina:</strong> No lavar el interior de la vagina. Solo la vulva con agua tibia. Ante flujo, picazón o dolor, acudir al médico.</li>
+    </ul>
+  
+    <h3>Signos de alerta</h3>
+    <ul>
+      <li>Flujo con mal olor</li>
+      <li>Ardor o dolor al orinar</li>
+      <li>Irritación o picazón persistente</li>
+    </ul>
+    <p>Si aparecen estos síntomas, consulta a un profesional de salud.</p>
+  
+    <div class="highlight">
+      <p><strong>¿Quieres saber más?</strong> Explora este recurso con consejos sobre higiene íntima y salud sexual: 
+        <a href="https://www.plannedparenthood.org/learn/stds-hiv-safer-sex/safer-sex" target="_blank">haz clic aquí</a>.
+      </p>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> CDC (2023). Mayo Clinic (2023). NHS UK (2023). Planned Parenthood (s.f.).</p>
+    </div>
+  </section>
+  <section class="content-section" id="frecuencia-sexual">
+    <h2>Frecuencia Sexual y Salud Física/Emocional</h2>
+    <p>No existe una "frecuencia sexual normal" que aplique a todas las personas o parejas. Lo saludable varía según la edad, salud, circunstancias de vida, deseo individual y la dinámica de la relación.</p>
+  
+    <h3>Factores que Influyen en la Frecuencia:</h3>
+    <ul>
+      <li><strong>Deseo Sexual (Libido):</strong> “El deseo sexual es una experiencia compleja que varía ampliamente entre individuos y puede fluctuar según factores biológicos y psicológicos” (Mayo Clinic, 2023).</li>
+      <li><strong>Calidad de la Relación:</strong> Según la APA (2022), “una buena comunicación y satisfacción emocional están directamente relacionadas con una vida sexual saludable”.</li>
+      <li><strong>Salud Física y Mental:</strong> El NIH (2022) afirma que “condiciones como la depresión, el estrés y ciertos medicamentos pueden disminuir el interés sexual”.</li>
+      <li><strong>Edad y Cambios Hormonales:</strong> La OMS (2023) explica que “los niveles hormonales influyen en la libido a lo largo de la vida, especialmente en la menopausia y la andropausia”.</li>
+      <li><strong>Estilo de Vida:</strong> El agotamiento por trabajo, responsabilidades familiares o falta de tiempo reduce la frecuencia sexual (Psychology Today, 2021).</li>
+    </ul>
+  
+    <h3>Enfoque Saludable:</h3>
+    <ul>
+      <li><strong>Calidad sobre Cantidad:</strong> “La satisfacción sexual se basa en la calidad de la conexión emocional y física, no en cuántas veces se tiene sexo” (Mayo Clinic, 2023).</li>
+      <li><strong>Comunicación Abierta:</strong> La APA (2022) recomienda “establecer un diálogo honesto sobre deseos y límites para fortalecer la relación”.</li>
+      <li><strong>Consentimiento y Deseo Mutuo:</strong> “El consentimiento claro y continuo es la base de una relación sexual saludable” (OMS, 2023).</li>
+      <li><strong>Bienestar Personal:</strong> “La frecuencia sexual debe estar alineada con el bienestar emocional de cada individuo” (NIH, 2022).</li>
+    </ul>
+  
+    <div class="highlight">
+      <p><strong>Dato:</strong> Estudios muestran que parejas que manejan diferencias en deseo mediante comunicación efectiva tienen relaciones más satisfactorias (Psychology Today, 2021).</p>
+    </div>
+  
+    <h3>¿Cómo manejar diferencias en el deseo?</h3>
+    <p>Las diferencias en libido entre parejas son normales. La Mayo Clinic (2023) aconseja: “Escuchar, ser paciente y considerar terapia de pareja cuando las diferencias afecten la relación”.</p>
+  
+    <div class="reference">
+        <p><strong>Material de apoyo:</strong></p>
+        <ul>
+          <li><a href="https://fundacionanaed.org/sexo-y-depresion-una-relacion-intima/" target="_blank">📘 Fundación ANAED – Sexo y depresión: una relación íntima</a></li>
+          <li><a href="https://www.psychologytoday.com/mx/fundamentos/bajo-nivel-de-deseo-sexual" target="_blank">📘 Psychology Today – Bajo nivel de deseo sexual</a></li>
+          <li><a href="https://www.mayoclinic.org/es/diseases-conditions/low-sex-drive-in-women/diagnosis-treatment/drc-20374561" target="_blank">📘 Mayo Clinic – Poco deseo sexual en mujeres</a></li>
+          <li><a href="https://www.aarp.org/espanol/salud/vida-saludable/info-2022/beneficios-del-sexo.html" target="_blank">📘 AARP – Los beneficios de la actividad sexual para tu salud</a></li>
+          <li><a href="https://www.plannedparenthood.org/es/blog/salud-sexual-y-salud-mental-bffs" target="_blank">📘 Planned Parenthood – Salud sexual y salud mental: ¿BFFs?</a></li>
+        </ul>
+      </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong> Mayo Clinic (2023). American Psychological Association (APA, 2022). National Institutes of Health (NIH, 2022). Organización Mundial de la Salud (OMS, 2023). Psychology Today (2021).</p>
+    </div>
+  </section>
+  <section class="content-section" id="riesgos-sin-proteccion">
+    <h2>Riesgos del Sexo sin Protección y Prevención</h2>
+    <p>En Colombia, se reportan aproximadamente 130.000 nuevos casos de infecciones de transmisión sexual (ITS) cada año (Ministerio de Salud, 2022). El uso correcto y constante del preservativo reduce el riesgo de transmisión hasta en un 98% (OMS, 2023), siendo la medida más efectiva para prevenir muchas ITS.</p>
+    
+    <h3>Datos relevantes para jóvenes colombianos:</h3>
+    <ul>
+      <li>El 40% de los nuevos casos de VIH ocurren en personas entre 15 y 24 años (Profamilia, 2023).</li>
+      <li>Solo el 58% de adolescentes usan preservativo en su primera relación sexual (Encuesta Nacional de Salud, 2021).</li>
+      <li>El Virus del Papiloma Humano (VPH) afecta a aproximadamente el 80% de personas sexualmente activas en algún momento de su vida.</li>
+    </ul>
+    
+    <h3>Recomendaciones de la OMS para prevención:</h3>
+    <ol>
+      <li>Usar preservativo en todas las relaciones sexuales.</li>
+      <li>Realizarse pruebas de ITS regularmente si se es sexualmente activo.</li>
+      <li>Vacunarse contra el VPH entre los 9 y 26 años.</li>
+      <li>Limitar el número de parejas sexuales.</li>
+    </ol>
+  
+    <div class="highlight">
+      <p><strong>Recursos en Colombia:</strong> Profamilia ofrece pruebas gratuitas de ITS para adolescentes. Línea de atención: 01 8000 110 900.</p>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Fuentes:</strong>  
+        Ministerio de Salud y Protección Social de Colombia (2022). <em>Boletín Epidemiológico ITS.</em>  
+        Organización Mundial de la Salud (2023). <em>Prevención de Infecciones de Transmisión Sexual.</em>  
+        Profamilia (2023). <em>Estadísticas de Salud Sexual y Reproductiva en Colombia.</em>  
+        Encuesta Nacional de Salud, Colombia (2021).
+      </p>
+    </div>
+  
+    <div class="reference">
+      <p><strong>Material de apoyo:</strong></p>
+      <ul>
+        <li><a href="https://profamilia.org.co/servicios/pruebas-de-infecciones-de-transmision-sexual-its/" target="_blank">📘 Profamilia – Pruebas gratuitas de ITS en Colombia</a></li>
+        <li><a href="https://www.paho.org/es/temas/infecciones-transmision-sexual" target="_blank">📘 OPS – Infecciones de Transmisión Sexual: información y prevención</a></li>
+        <li><a href="https://www.who.int/es/news-room/fact-sheets/detail/sexually-transmitted-infections-(stis)" target="_blank">📘 OMS – Hoja informativa sobre Infecciones de Transmisión Sexual</a></li>
+        <li><a href="https://www.minsalud.gov.co/salud/publica/PET/Paginas/ITS.aspx" target="_blank">📘 Ministerio de Salud Colombia – Programa de ITS</a></li>
+      </ul>
+    </div>
+  </section>
+  <section class="content-section" id="beneficios-vida-sexual">
+    <h2>Beneficios de una Vida Sexual Saludable</h2>
+    <p>Una vida sexual saludable, consensuada y satisfactoria aporta múltiples beneficios al bienestar físico, emocional y relacional de las personas.</p>
+  
+    <h3>Beneficios Físicos:</h3>
+    <ul>
+      <li><strong>Mejora del sistema inmunológico:</strong> La actividad sexual regular se ha asociado con un aumento en los niveles de inmunoglobulina A (IgA), un anticuerpo que ayuda a proteger contra infecciones (Charnetski et al., 2004).</li>
+      <li><strong>Salud cardiovascular:</strong> Puede contribuir a reducir la presión arterial y mejorar la función cardíaca, favoreciendo la salud del corazón (Brody & Preut, 2002).</li>
+      <li><strong>Alivio del dolor:</strong> La liberación de endorfinas durante el orgasmo actúa como analgésico natural, ayudando a mitigar dolores crónicos o temporales (Aloisi & Bonifazi, 2006).</li>
+      <li><strong>Mejora del sueño:</strong> La relajación post-orgasmo y la liberación de hormonas como la oxitocina facilitan un sueño más profundo y reparador (Floyd et al., 2017).</li>
+      <li><strong>Fortalecimiento del suelo pélvico:</strong> En mujeres, la actividad sexual puede ayudar a tonificar los músculos del suelo pélvico, mejorando la salud urinaria y sexual (Bø & Frawley, 2014).</li>
+      <li><strong>Reducción del estrés:</strong> El contacto físico y la liberación de hormonas como la oxitocina y serotonina contribuyen a disminuir los niveles de cortisol, la hormona del estrés (Carter, 2014).</li>
+    </ul>
+  
+    <h3>Beneficios Emocionales y Relacionales:</h3>
+    <ul>
+      <li><strong>Mayor intimidad y conexión:</strong> Fortalece el vínculo emocional con la pareja, promoviendo la comunicación y confianza (Muise et al., 2016).</li>
+      <li><strong>Mejora del estado de ánimo:</strong> La liberación de endorfinas y dopamina genera sensaciones de placer y bienestar (Meston & Frohlich, 2000).</li>
+      <li><strong>Aumento de la autoestima y confianza:</strong> Sentirse deseado/a y cómodo/a con el propio cuerpo contribuye a una mejor autoimagen (Mark et al., 2014).</li>
+      <li><strong>Reducción de la ansiedad:</strong> El placer y la relajación sexual tienen efectos ansiolíticos, ayudando a manejar el estrés emocional (Brody, 2006).</li>
+    </ul>
+  
+    <p>Es importante destacar que una <em>vida sexual saludable</em> no se mide por la frecuencia, sino por la calidad, el consentimiento, el respeto mutuo, la seguridad y la satisfacción personal. Puede incluir o no la penetración, y puede vivirse en pareja o individualmente (masturbación).</p>
+  
+    <div class="reference">
+      <p><strong>Fuentes y material de apoyo:</strong></p>
+      <ul>
+        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1563527/" target="_blank">📘 Charnetski & Brennan (2004) – Sexual Activity and Immunity (NCBI)</a></li>
+        <li><a href="https://pubmed.ncbi.nlm.nih.gov/12124254/" target="_blank">📘 Brody & Preut (2002) – Sexual Activity and Cardiovascular Health</a></li>
+        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2768496/" target="_blank">📘 Aloisi & Bonifazi (2006) – Pain Modulation by Sexual Activity</a></li>
+        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5467870/" target="_blank">📘 Carter (2014) – Oxytocin and Stress Reduction</a></li>
+        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3659507/" target="_blank">📘 Muise et al. (2016) – Sexual Satisfaction and Relationship Well-being</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+</div>
+<footer>
+<p>© <span id="currentYear"></span> Guía Interactiva de Educación Sexual. Información con base científica y enfoque inclusivo.</p>
+<p>Este material es educativo y no reemplaza la consulta con profesionales de la salud o asesores legales.</p>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Botón hamburguesa para móviles
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav');
+    
+    if(hamburger && navMenu) {
+        hamburger.addEventListener('click', function() {
+            const expanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
         });
-    </script>
+    }
+    
+    // Navegación sidebar
+    const navLinks = document.querySelectorAll('nav.sidebar ul li a');
+    const contentSections = document.querySelectorAll('.content-section');
+    
+    function showContent(targetId) {
+        contentSections.forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        const targetSection = document.getElementById(targetId);
+        if(targetSection) {
+            targetSection.classList.add('active');
+        }
+        
+        const activeLink = document.querySelector(`nav.sidebar ul li a[data-target="${targetId}"]`);
+        if(activeLink) {
+            activeLink.classList.add('active');
+        }
+        
+        // Scroll al inicio del contenido en móviles
+        if(window.innerWidth <= 992) {
+            document.querySelector('main.content').scrollTop = 0;
+        }
+    }
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            showContent(targetId);
+        });
+    });
+    
+    // Año actual en el footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+    // Inicializar la sección de inicio
+    showContent('inicio');
+});
 
+// Inicializar gráfico
+function initChart() {
+    const ctx = document.getElementById('graficoViolencia');
+    if(ctx) {
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Psicológica (45%)', 'Física (30%)', 'Sexual (20%)', 'Digital (5%)'],
+                datasets: [{
+                    data: [45, 30, 20, 5],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#9b59b6'],
+                    borderColor: '#ffffff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#333',
+                            font: { size: 14 }
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+</script>
+<!-- Cargar Chart.js después de definir la función initChart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Inicializar gráfico cuando Chart.js esté cargado
+if(typeof Chart !== 'undefined') {
+    initChart();
+} else {
+    window.addEventListener('load', initChart);
+}
+</script>
 </body>
 </html>
